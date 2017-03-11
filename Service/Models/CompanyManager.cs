@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Repository;
+using Repository.EntityModel;
+using AutoMapper;
+using Service.Configuration;
+
+namespace Service.Models
+{
+    public class CompanyManager
+    {
+        static private CompanyDba _companyDba = new CompanyDba();
+
+
+        static public company getcompany(String Id)
+        {
+            return Mapper.Map<company>(_companyDba.Read(Id));
+        }
+
+
+        static public List<company> getCompanies()
+        {
+            return Mapper.Map<List<Company>, List<company>>(_companyDba.List());
+        }
+    }
+}

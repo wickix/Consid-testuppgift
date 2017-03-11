@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
-namespace Repository
+namespace Repository.EntityModel
 {
-    public class Class1
+    public class StoreDba
     {
+        
     }
 }
