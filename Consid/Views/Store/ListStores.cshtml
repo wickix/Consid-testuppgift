@@ -1,0 +1,27 @@
+﻿@model List<Service.Models.store>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ListStores</title>
+</head>
+<body>
+    <div> 
+        @foreach (var obj in Model) {
+            <h2>@obj.Name</h2>
+            <h3>@obj.Company.Name</h3>
+            <p>@obj.Address</p>
+            <p>@obj.Zip</p>
+            <p>@obj.City</p>
+            <p>@obj.Country</p>
+            <p>@obj.Latitude</p>
+            <p>@obj.Longitude</p><br/>
+        }
+    </div>
+</body>
+</html>

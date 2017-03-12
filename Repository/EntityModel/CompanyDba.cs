@@ -25,7 +25,7 @@ namespace Repository.EntityModel
         {
             using (var db = new CompaniesDBEntities())
             {
-                var query = db.Companies.OrderBy(x => x.Name);
+                var query = db.Companies.Include(x => x.Stores).OrderBy(n => n.Name);
                 return query.ToList();
             }
         }

@@ -66,6 +66,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CompaniesDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="CompaniesDBEntities.cs" />
     <Compile Include="Company.cs">
       <DependentUpon>CompaniesDB.tt</DependentUpon>
     </Compile>

@@ -21,6 +21,6 @@ namespace Service.Models
         public string Longitude { get; set; }
         public string Latitude { get; set; }
 
-        public virtual Company Company { get; set; }
+        public Company Company { get; set; }
     }
 }

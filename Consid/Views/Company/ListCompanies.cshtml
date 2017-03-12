@@ -14,6 +14,11 @@
 @foreach (var obj in Model)
 {
     <h2>@obj.Name</h2>
+    <h3>@obj.OrganizationNumber</h3>
+    <p> @obj.Notes</p>
+    foreach (var store in obj.Stores) {
+    <p>@store.Name</p>
+    }<br />
 }
     </div>
 </body>

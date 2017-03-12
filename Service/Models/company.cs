@@ -17,9 +17,5 @@ namespace Service.Models
       public string Notes { get; set; }
 
       public List<Store> Stores { get; set; }
-
-
-        
-
     }
 }
