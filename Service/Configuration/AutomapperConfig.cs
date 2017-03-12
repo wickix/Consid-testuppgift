@@ -35,7 +35,7 @@ namespace Service.Configuration
     {
         public FromCompanyProfile()
         {
-            CreateMap<Company, company>().MaxDepth(3);
+            CreateMap<company, Company>().MaxDepth(3);
         }
     }
 
@@ -50,7 +50,7 @@ namespace Service.Configuration
     {
         public FromStoreProfile()
         {
-            CreateMap<Store, store>().MaxDepth(3);
+            CreateMap<store, Store>().MaxDepth(3);
         }
     }
 

@@ -15,15 +15,18 @@ namespace Service.Models
         static private CompanyDba _companyDba = new CompanyDba();
 
 
-        static public company getcompany(String Id)
+        static public company getcompany(Guid Id)
         {
             return Mapper.Map<company>(_companyDba.Read(Id));
         }
-
-
-        static public List<company> getCompanies()
+            static public List<company> getCompanies()
         {
             return Mapper.Map<List<Company>, List<company>>(_companyDba.List());
+        }
+
+        static public void AddCompany(company companyObject)
+        {
+            _companyDba.Add(Mapper.Map <company, Company> (companyObject));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@model List<Service.Models.store>
+@using Service.Models;
 @{
     Layout = null;
 }
@@ -21,6 +22,34 @@
             <p>@obj.Country</p>
             <p>@obj.Latitude</p>
             <p>@obj.Longitude</p><br/>
+        }
+    </div>
+    <div>
+        @Html.BeginForm("AddStore", "Store", FormMethod.Get)
+        {
+            <p>The store name:</p>
+            <input name="Name" type="text" /><br />
+            <p>Owner:</p>
+            <select name="Company">
+                <option value="-1">-------- Choose a company --------</option>
+                @foreach(var company in CompanyManager.getCompanies())
+                {
+                    <option value="@company.Id">@company.Name</option>
+                }
+            </select>
+            <p>Address:</p>
+            <input name="Address" type="text" /><br />
+            <p>City:</p>
+            <input name="City" type="text" /><br />
+            <p>Zip:</p>
+            <input name="Zip" type="number" /><br />
+            <p>Country:</p>
+            <input name="Country" type="text" /><br />
+            <p>Longitude:</p>
+            <input name="Longitude" type="number" /><br />
+            <p>Latitude:</p>
+            <input name="Latitude" type="number" /><br /><br/>
+            <input type="submit" />
         }
     </div>
 </body>

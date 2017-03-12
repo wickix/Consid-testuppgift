@@ -11,7 +11,7 @@ namespace Repository.EntityModel
     {
         public CompanyDba() { }
 
-        public CompanyDba(string Id)
+        public CompanyDba(Guid Id)
         {
             _companyObj = this.Read(Id);
         }
@@ -30,12 +30,25 @@ namespace Repository.EntityModel
             }
         }
 
-        public Company Read(string Id)  //Finds a particular company
+        public Company Read(Guid Id)  //Finds a particular company
         {
             using (var db = new CompaniesDBEntities())
             {
                 //db.Companies.Load();  fråga
-                return db.Companies.Find(Id);
+                return db.Companies.Include(s => s.Stores).Where(x => x.Id == Id).First();
+            }
+        }
+
+        public void Add(Company companyObject)
+        {
+            using (var db = new CompaniesDBEntities())
+            {
+                using (var transaction = db.Database.BeginTransaction()) // Starts a transaction
+                {
+                    db.Companies.Add(companyObject);  // Prepare query  
+                    db.SaveChanges();   // Run the query
+                    transaction.Commit();   //  Permanent the result, writing to disc and closing transaction
+                }
             }
         }
     }

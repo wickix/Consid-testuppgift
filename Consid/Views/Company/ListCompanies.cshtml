@@ -10,16 +10,32 @@
     <title>ListCompanies</title>
 </head>
 <body>
-    <div> 
-@foreach (var obj in Model)
-{
-    <h2>@obj.Name</h2>
-    <h3>@obj.OrganizationNumber</h3>
-    <p> @obj.Notes</p>
-    foreach (var store in obj.Stores) {
-    <p>@store.Name</p>
-    }<br />
-}
+    <div>
+        @foreach (var obj in Model)
+        {
+            <h2>@obj.Name</h2>
+            <h3>@obj.OrganizationNumber</h3>
+            <p> @obj.Notes</p>
+            foreach (var store in obj.Stores)
+            {
+                <p>@store.Name</p>
+            }<br />
+        }
+    </div>
+
+    <div>
+        <h1>Create new company</h1>
+        @using (Html.BeginForm("AddCompany", "Company", FormMethod.Post))
+        {
+            <p>The company name:</p>
+            <input name="Name" type="text"/><br />
+            <p>The company's organizationnumber:</p>
+            <input name="OrganizationNr" type="number"/><br />
+            <p>Information about the company:</p>
+            <input name="Notes" type="text"/><br /><br />
+            <input type="submit" />
+        }
+
     </div>
 </body>
 </html>

@@ -11,7 +11,7 @@ namespace Repository.EntityModel
     {
         public StoreDba() { }
 
-        public StoreDba(string Id)
+        public StoreDba(Guid Id)
         {
             _storeObj = this.Read(Id);
         }
@@ -30,12 +30,25 @@ namespace Repository.EntityModel
             }
         }
 
-        public Store Read(string Id)  //Finds a particular company
+        public Store Read(Guid Id)  //Finds a particular company
         {
             using (var db = new CompaniesDBEntities())
             {
                 //db.Companies.Load();  fråga
                 return db.Stores.Find(Id);
+            }
+        }
+
+        public void Add(Store storeObject)
+        {
+            using (var db = new CompaniesDBEntities())
+            {
+                using (var transaction = db.Database.BeginTransaction()) // Starts a transaction
+                {
+                    db.Stores.Add(storeObject);  // Prepare query  
+                    db.SaveChanges();   // Run the query
+                    transaction.Commit();   //  Permanent the result, writing to disc and closing transaction
+                }
             }
         }
 

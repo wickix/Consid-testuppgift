@@ -15,7 +15,7 @@ namespace Service.Models
         static private StoreDba _storeDba = new StoreDba();
 
 
-        static public store getStore(String Id)
+        static public store getStore(Guid Id)
         {
             return Mapper.Map<store>(_storeDba.Read(Id));
         }
@@ -26,5 +26,9 @@ namespace Service.Models
             return Mapper.Map<List<Store>, List<store>>(_storeDba.List());
         }
 
+        static public void AddStore(store storeObject)
+        {
+            _storeDba.Add(Mapper.Map<store, Store>(storeObject));
+        }
     }
 }
