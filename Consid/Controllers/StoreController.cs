@@ -15,10 +15,15 @@ namespace Consid.Controllers
             return View(StoreManager.getStores());
         }
 
+        public ViewResult ShowStore(Guid Id)
+        {
+            return View(StoreManager.getStore(Id));
+        }
+
         public void AddStore(string Name, Guid Company, string Address, string City, string Zip, string Country, string Longitude, string Latitude)
         {
             store newStore = new store();
-            List<store> listStore = new List<store>();
+            List<store> listStore = StoreManager.getStores();
             bool IdExist = true;
 
             newStore.Name = Name;
@@ -48,5 +53,25 @@ namespace Consid.Controllers
             StoreManager.AddStore(newStore);
             Response.Redirect(Request.UrlReferrer.ToString());
         }
+
+        public void UpdateStore(string Name, Guid Company, string Address, string City, string Zip, string Country, string Longitude, string Latitude, Guid Id)
+        {
+            store newStore = new store();
+
+            newStore.Name = Name;
+            newStore.CompanyId = CompanyManager.getcompany(Company).Id;
+            newStore.Address = Address;
+            newStore.City = City;
+            newStore.Zip = Zip;
+            newStore.Country = Country;
+            newStore.Longitude = Longitude;
+            newStore.Latitude = Latitude;
+            newStore.Id = Id;
+            //Check if the Id already exist
+
+            StoreManager.UpdateStore(newStore);
+            Response.Redirect(Request.UrlReferrer.ToString());
+        }
+
     }
 }

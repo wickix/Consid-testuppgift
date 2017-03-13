@@ -13,7 +13,7 @@
     <div>
         @foreach (var obj in Model)
         {
-            <h2>@obj.Name</h2>
+            <a href="@Url.Action("ShowCompany","Company", new {obj.Id})"><h2>@obj.Name</h2></a>
             <h3>@obj.OrganizationNumber</h3>
             <p> @obj.Notes</p>
             foreach (var store in obj.Stores)
@@ -25,7 +25,7 @@
 
     <div>
         <h1>Create new company</h1>
-        @using (Html.BeginForm("AddCompany", "Company", FormMethod.Post))
+        @using(Html.BeginForm("AddCompany", "Company", FormMethod.Post))
         {
             <p>The company name:</p>
             <input name="Name" type="text"/><br />
@@ -37,5 +37,6 @@
         }
 
     </div>
+
 </body>
 </html>

@@ -30,5 +30,10 @@ namespace Service.Models
         {
             _storeDba.Add(Mapper.Map<store, Store>(storeObject));
         }
+
+        static public void UpdateStore(store storeObject)
+        {
+            _storeDba.Update(Mapper.Map<store, Store>(storeObject));
+        }
     }
 }

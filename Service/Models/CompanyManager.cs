@@ -28,5 +28,15 @@ namespace Service.Models
         {
             _companyDba.Add(Mapper.Map <company, Company> (companyObject));
         }
+
+        static public void UpdateCompany(company companyObject)
+        {
+            _companyDba.Update(Mapper.Map<company, Company>(companyObject));
+        }
+
+        static public void DeleteCompany(company companyObject)
+        {
+            _companyDba.Delete(Mapper.Map<company, Company>(companyObject));
+        }
     }
 }

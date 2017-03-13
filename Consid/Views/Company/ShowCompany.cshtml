@@ -1,0 +1,42 @@
+﻿@model Service.Models.company
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShowCompany</title>
+</head>
+<body>
+    <div> 
+        <h2>@Model.Name</h2>
+        <h3>@Model.OrganizationNumber</h3>
+        <p> @Model.Notes</p>
+        @foreach (var store in Model.Stores)
+        {
+        <p>@store.Name</p>
+        }<br />
+
+    </div>
+    <div>
+        <h1>Edit a company</h1>
+        @using (Html.BeginForm("UpdateCompany", "Company", new { Model.Id},FormMethod.Post))
+        {
+            <p>The company name:</p>
+            <input name="Name" type="text" value="@Model.Name"/><br />
+            <p>The company's organizationnumber:</p>
+            <input name="OrganizationNr" type="number" value="@Model.OrganizationNumber"/><br />
+            <p>Information about the company:</p>
+            <input name="Notes" type="text" value="@Model.Notes"/><br /><br />
+            <input type="submit" /><br/><br />
+        }
+    </div>
+    <div>
+        <h1 style="color : palevioletred">Delete this company</h1>
+        <input type="button" onclick="location.href='@Url.Action("DeleteCompany", "Company", new { Model.Id,  })'" value="DELETE"/>
+    </div>
+</body>
+</html>

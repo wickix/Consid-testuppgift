@@ -15,6 +15,11 @@ namespace Consid.Controllers
             return View(CompanyManager.getCompanies());
         }
 
+        public ViewResult ShowCompany(Guid Id)
+        {
+            return View(CompanyManager.getcompany(Id));
+        }
+
         public void AddCompany(string Name, int OrganizationNr, string Notes)
         {
             company newCompany = new company();
@@ -40,11 +45,30 @@ namespace Consid.Controllers
                 }
             }
 
-
             //newCompany.Stores = StoresList;
 
             CompanyManager.AddCompany(newCompany);
             Response.Redirect(Request.UrlReferrer.ToString());
+        }
+
+
+        public void UpdateCompany(string Name, int OrganizationNr, string Notes, Guid Id)
+        {
+            company updateCompany = new company();
+
+            updateCompany.Name = Name;
+            updateCompany.OrganizationNumber = OrganizationNr;
+            updateCompany.Notes = Notes;
+            updateCompany.Id = Id;
+
+            CompanyManager.UpdateCompany(updateCompany);
+            Response.Redirect(Request.UrlReferrer.ToString());
+        }
+
+        public ActionResult DeleteCompany(Guid Id)
+        {
+            CompanyManager.DeleteCompany(CompanyManager.getcompany(Id));
+            return RedirectToAction("Company", "ListCompanies");
         }
     }
 }

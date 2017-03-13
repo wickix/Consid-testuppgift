@@ -13,9 +13,10 @@
 </head>
 <body>
     <div> 
-        @foreach (var obj in Model) {
-            <h2>@obj.Name</h2>
-            <h3>@obj.Company.Name</h3>
+        @foreach (var obj in Model)
+        {
+            <a href="@Url.Action("ShowStore","Store", new { obj.Id})"><h2>@obj.Name</h2></a>
+            <a href="@Url.Action("ShowCompany","Company", new { obj.Company.Id})"><h3>@obj.Company.Name</h3></a>
             <p>@obj.Address</p>
             <p>@obj.Zip</p>
             <p>@obj.City</p>
@@ -25,17 +26,17 @@
         }
     </div>
     <div>
-        @Html.BeginForm("AddStore", "Store", FormMethod.Get)
+        @using(Html.BeginForm("AddStore", "Store", FormMethod.Post))
         {
             <p>The store name:</p>
             <input name="Name" type="text" /><br />
             <p>Owner:</p>
             <select name="Company">
                 <option value="-1">-------- Choose a company --------</option>
-                @foreach(var company in CompanyManager.getCompanies())
+                @foreach (var company in CompanyManager.getCompanies())
                 {
                     <option value="@company.Id">@company.Name</option>
-                }
+                    }
             </select>
             <p>Address:</p>
             <input name="Address" type="text" /><br />

@@ -1,0 +1,63 @@
+﻿@model Service.Models.store
+@using Service.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShowStore</title>
+</head>
+<body>
+    <div> 
+        <h2>@Model.Name</h2>
+        <a href="@Url.Action("ShowCompany","Company", new { Model.Company.Id})"><h3>@Model.Company.Name</h3></a>
+        <p>@Model.Address</p>
+        <p>@Model.Zip</p>
+        <p>@Model.City</p>
+        <p>@Model.Country</p>
+        <p>@Model.Latitude</p>
+        <p>@Model.Longitude</p><br />
+
+    </div>
+    <div>
+        @using (Html.BeginForm("UpdateStore", "Store", new { Model.Id}, FormMethod.Post))
+        {
+            <p>The store name:</p>
+            <input name="Name" type="text" value="@Model.Name"/><br />
+            <p>Owner:</p>
+            <select name="Company">
+                <option value="-1">-------- Choose a company --------</option>
+                @foreach (var company in CompanyManager.getCompanies())
+                {
+                    if (Model.CompanyId == company.Id)
+                    {
+                        <option selected value="@company.Id">@company.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@company.Id">@company.Name</option>
+                    }
+                }
+            </select>
+            <p>Address:</p>
+            <input name="Address" type="text" value="@Model.Address"/><br />
+            <p>City:</p>
+            <input name="City" type="text" value="@Model.City"/><br />
+            <p>Zip:</p>
+            <input name="Zip" type="number" value="@Model.Zip"/><br />
+            <p>Country:</p>
+            <input name="Country" type="text" value="@Model.Country"/><br />
+            <p>Longitude:</p>
+            <input name="Longitude" type="number" value="@Model.Longitude"/><br />
+            <p>Latitude:</p>
+            <input name="Latitude" type="number" value="@Model.Latitude"/><br /><br />
+            <input type="submit" />
+        }
+    </div>
+
+</body>
+</html>

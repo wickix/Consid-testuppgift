@@ -35,7 +35,7 @@ namespace Repository.EntityModel
             using (var db = new CompaniesDBEntities())
             {
                 //db.Companies.Load();  fråga
-                return db.Stores.Find(Id);
+                return db.Stores.Include(x => x.Company).Where(y => y.Id == Id).First();
             }
         }
 
@@ -49,6 +49,30 @@ namespace Repository.EntityModel
                     db.SaveChanges();   // Run the query
                     transaction.Commit();   //  Permanent the result, writing to disc and closing transaction
                 }
+            }
+        }
+
+        public void Update(Store storeObject)
+        {
+
+            using (var db = new CompaniesDBEntities())
+            {
+
+                db.Stores.Attach(storeObject);
+                db.Entry(storeObject).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+
+        public void Delete(Store storeObject)
+        {
+            using (var db = new CompaniesDBEntities())
+            {
+                Store storeItem = db.Stores.Find(storeObject.Id);
+              
+                db.Stores.Remove(storeItem);
+                db.Entry(storeItem).State = EntityState.Deleted;
+                db.SaveChanges();
             }
         }
 

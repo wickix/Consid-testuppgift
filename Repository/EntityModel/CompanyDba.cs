@@ -51,5 +51,61 @@ namespace Repository.EntityModel
                 }
             }
         }
+
+        public void Update(Company companyObject)
+        {
+
+            using (var db = new CompaniesDBEntities())
+            {
+
+                db.Companies.Attach(companyObject);
+                db.Entry(companyObject).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
+
+        public void Delete(Company companyObject)
+        {
+            using (var db = new CompaniesDBEntities())
+            {
+                companyObject.Stores.Clear();
+                //foreach (var store in companyObject.Stores)
+                //{
+                //    companyObject.Stores.Clear(store);
+                //   // db.Stores.Remove(store);
+                //}
+                StoreDba storeDba = new StoreDba();
+                Company companyItem = db.Companies.Find(companyObject.Id);
+                List<Store> listStore = companyItem.Stores.ToList();
+                int size = companyItem.Stores.Count();
+
+
+                for (int i = size - 1; i >= 0; i--)
+                {
+
+                    companyItem.Stores.Remove(companyItem.Stores.ToList()[i]);
+                    storeDba.Delete(listStore[i]);
+                    listStore.RemoveAt(i);
+
+
+                }
+                //companyItem.Stores.Clear();
+
+                //foreach (var store in companyItem.Stores)
+                //{
+                //    companyItem.Stores.Remove(store);
+                //    storeDba.Delete(store);
+                //}
+
+                
+                //db.Companies.Attach(companyItem);
+
+                db.Stores.Load();
+                db.Companies.Load();
+                db.Companies.Remove(companyItem);
+                db.Entry(companyItem).State = EntityState.Deleted;
+                db.SaveChanges();
+            }
+        }
     }
 }
