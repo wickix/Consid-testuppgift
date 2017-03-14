@@ -73,5 +73,11 @@ namespace Consid.Controllers
             Response.Redirect(Request.UrlReferrer.ToString());
         }
 
+        public ActionResult DeleteStore(Guid id)
+        {
+            StoreManager.DeleteStore(StoreManager.getStore(id));
+            return RedirectToAction("ListStores", "Store");
+        }
+
     }
 }

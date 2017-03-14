@@ -74,9 +74,9 @@ namespace Repository.EntityModel
                 //    companyObject.Stores.Clear(store);
                 //   // db.Stores.Remove(store);
                 //}
-                StoreDba storeDba = new StoreDba();
+              //  StoreDba storeDba = new StoreDba();
                 Company companyItem = db.Companies.Find(companyObject.Id);
-                List<Store> listStore = companyItem.Stores.ToList();
+              /*  List<Store> listStore = companyItem.Stores.ToList();
                 int size = companyItem.Stores.Count();
 
 
@@ -88,7 +88,7 @@ namespace Repository.EntityModel
                     listStore.RemoveAt(i);
 
 
-                }
+                }*/
                 //companyItem.Stores.Clear();
 
                 //foreach (var store in companyItem.Stores)
@@ -100,10 +100,10 @@ namespace Repository.EntityModel
                 
                 //db.Companies.Attach(companyItem);
 
-                db.Stores.Load();
-                db.Companies.Load();
+               // db.Stores.Load();
+               // db.Companies.Load();
                 db.Companies.Remove(companyItem);
-                db.Entry(companyItem).State = EntityState.Deleted;
+               // db.Entry(companyItem).State = EntityState.Deleted;
                 db.SaveChanges();
             }
         }

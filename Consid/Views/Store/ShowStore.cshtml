@@ -58,6 +58,10 @@
             <input type="submit" />
         }
     </div>
+    <div>
+        <h1 style="color : palevioletred">Delete this store</h1>
+        <input type="button" onclick="location.href='@Url.Action("DeleteStore", "Store", new { Model.Id,  })'" value="DELETE" />
+    </div>
 
 </body>
 </html>

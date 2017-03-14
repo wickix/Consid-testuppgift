@@ -35,5 +35,10 @@ namespace Service.Models
         {
             _storeDba.Update(Mapper.Map<store, Store>(storeObject));
         }
+
+        static public void DeleteStore(store storeObject)
+        {
+            _storeDba.Delete(Mapper.Map<store, Store>(storeObject));
+        }
     }
 }
