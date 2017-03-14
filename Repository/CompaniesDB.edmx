@@ -100,7 +100,9 @@
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_Stores_Companies">
-          <End Role="Companies" Type="Self.Company" Multiplicity="1" />
+          <End Role="Companies" Type="Self.Company" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Stores" Type="Self.Store" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Companies">

@@ -68,7 +68,7 @@ namespace Repository.EntityModel
         {
             using (var db = new CompaniesDBEntities())
             {
-                companyObject.Stores.Clear();
+                //companyObject.Stores.Clear();
                 //foreach (var store in companyObject.Stores)
                 //{
                 //    companyObject.Stores.Clear(store);

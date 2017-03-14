@@ -68,7 +68,7 @@ namespace Consid.Controllers
         public ActionResult DeleteCompany(Guid Id)
         {
             CompanyManager.DeleteCompany(CompanyManager.getcompany(Id));
-            return RedirectToAction("Company", "ListCompanies");
+            return RedirectToAction("ListCompanies", "Company");
         }
     }
 }
