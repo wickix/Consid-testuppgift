@@ -18,9 +18,9 @@
     </style>
 </head>
 <body>
-    <div> 
+    <div>
         <h2>@Model.Name</h2>
-        <a href="@Url.Action("ShowCompany","Company", new { Model.Company.Id})"><h3>@Model.Company.Name</h3></a>
+        <a href="@Url.Action("ShowCompany", "Company", new { Model.Company.Id })"><h3>@Model.Company.Name</h3></a>
         <p>@Model.Address</p>
         <p>@Model.Zip</p>
         <p>@Model.City</p>
@@ -30,13 +30,13 @@
 
     </div>
     <div>
-        @using (Html.BeginForm("UpdateStore", "Store", new { Model.Id}, FormMethod.Post))
+        @using (Html.BeginForm("UpdateStore", "Store", new { Model.Id }, FormMethod.Post))
         {
             <p>The store name:</p>
-            <input name="Name" type="text" value="@Model.Name"/><br />
+            <input name="Name" type="text" value="@Model.Name" /><br />
             <p>Owner:</p>
             <select name="Company">
-                <option value="-1">-------- Choose a company --------</option>
+                <option value="@Guid.Empty">-------- Choose a company --------</option>
                 @foreach (var company in CompanyManager.getCompanies())
                 {
                     if (Model.CompanyId == company.Id)
@@ -50,64 +50,53 @@
                 }
             </select>
             <p>Address:</p>
-            <input name="Address" type="text" value="@Model.Address"/><br />
+            <input name="Address" type="text" value="@Model.Address" /><br />
             <p>City:</p>
-            <input name="City" type="text" value="@Model.City"/><br />
+            <input name="City" type="text" value="@Model.City" /><br />
             <p>Zip:</p>
-            <input name="Zip" type="number" value="@Model.Zip"/><br />
+            <input name="Zip" type="number" value="@Model.Zip" /><br />
             <p>Country:</p>
-            <input name="Country" type="text" value="@Model.Country"/><br />
+            <input name="Country" type="text" value="@Model.Country" /><br />
             <p>Longitude:</p>
-            <input name="Longitude" type="number" value="@Model.Longitude"/><br />
+            <input name="Longitude" type="number" value="@Model.Longitude" /><br />
             <p>Latitude:</p>
-            <input name="Latitude" type="number" value="@Model.Latitude"/><br /><br />
+            <input name="Latitude" type="number" value="@Model.Latitude" /><br /><br />
             <input type="submit" />
         }
     </div>
     <div>
         <h1 style="color : palevioletred">Delete this store</h1>
-        <input type="button" onclick="location.href='@Url.Action("DeleteStore", "Store", new { Model.Id,  })'" value="DELETE" />
+        <input type="button" onclick="location.href='@Url.Action("DeleteStore", "Store", new { Model.Id, })'" value="DELETE" />
     </div>
 
-    <div id="map"></div>
-    <script>
-        var request = new XMLHttpRequest();
-        var url = "http://maps.google.com/maps/api/geocode/json?address="+"@Model.Address.ToString().Replace(' ', '+')"+"+"+"@Model.City"+"+"+"@Model.Country"+"&sensor=false"
-        request.open('POST', url, true);
-        request.send();
 
-        request.addEventListener("load", function(){
+    @if (!((Model.Latitude == "") || (Model.Longitude == "")))
+    {
+        <div id="map">
+            <script>
+                function initMap() {
+                    var uluru = {lat: @Model.Latitude, lng: @Model.Longitude};
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 15,
+                        center: uluru
+                    });
+                    var marker = new google.maps.Marker({
+                        position: uluru,
+                        map: map
+                    });
+                }
+            </script>
 
-            console.log(request.status);
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm2we0qh0j-930tJIOb_Jwjv0oZn5vU_c&callback=initMap">
+            </script>
+        </div>
+    }
 
-            if(request.status == 200){
-
-                var jsonbody = request.responseText;
-                console.log(jsonbody);
-
-                console.log(JSON.parse(jsonbody));
-                console.log(JSON.parse(jsonbody)["results"][0]["geometry"]["location"]["lat"]);
-                console.log(JSON.parse(jsonbody)["results"][0]["geometry"]["location"]["lng"]);
-            }
-        })
-    </script>
-
-    @*<script>
-      function initMap() {
-        var uluru = {lat: @Model.Latitude, lng: @Model.Longitude};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-      }
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAm2we0qh0j-930tJIOb_Jwjv0oZn5vU_c&callback=initMap">
-    </script>*@
+    else
+    {
+        <h2> Sorry couldn't found the store's address on a map.</h2>
+    }
 
 </body>
 </html>
