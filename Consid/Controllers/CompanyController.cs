@@ -22,46 +22,54 @@ namespace Consid.Controllers
 
         public void AddCompany(string Name, int OrganizationNr, string Notes)
         {
-            company newCompany = new company();
-            List<company> listCompany = CompanyManager.getCompanies();
-            bool IdExist = true;
-
-            newCompany.Name = Name;
-            newCompany.OrganizationNumber = OrganizationNr;
-            newCompany.Notes = Notes;
-            newCompany.Id = Guid.NewGuid();
-            //Check if the Id already exist
-            while (IdExist)
+            if (ValidInputs(Name, OrganizationNr))
             {
-                foreach (var company in listCompany)
+                company newCompany = new company();
+                List<company> listCompany = CompanyManager.getCompanies();
+                bool IdExist = true;
+
+                newCompany.Name = Name;
+                newCompany.OrganizationNumber = OrganizationNr;
+                newCompany.Notes = Notes;
+                newCompany.Id = Guid.NewGuid();
+                //Check if the Id already exist
+                while (IdExist)
                 {
-                    if (newCompany.Id == company.Id)
+                    foreach (var company in listCompany)
                     {
-                        newCompany.Id = Guid.NewGuid();
-                        IdExist = true;
-                        break;
+                        if (newCompany.Id == company.Id)
+                        {
+                            newCompany.Id = Guid.NewGuid();
+                            IdExist = true;
+                            break;
+                        }
+                        IdExist = false;
                     }
-                    IdExist = false;
                 }
+
+                //newCompany.Stores = StoresList;
+
+                CompanyManager.AddCompany(newCompany);
+               
             }
-
-            //newCompany.Stores = StoresList;
-
-            CompanyManager.AddCompany(newCompany);
-            Response.Redirect(Request.UrlReferrer.ToString());
+           Response.Redirect(Request.UrlReferrer.ToString());
         }
 
 
         public void UpdateCompany(string Name, int OrganizationNr, string Notes, Guid Id)
         {
-            company updateCompany = new company();
+            if (ValidInputs(Name, OrganizationNr))
+            {
+                company updateCompany = new company();
 
-            updateCompany.Name = Name;
-            updateCompany.OrganizationNumber = OrganizationNr;
-            updateCompany.Notes = Notes;
-            updateCompany.Id = Id;
+                updateCompany.Name = Name;
+                updateCompany.OrganizationNumber = OrganizationNr;
+                updateCompany.Notes = Notes;
+                updateCompany.Id = Id;
 
-            CompanyManager.UpdateCompany(updateCompany);
+                CompanyManager.UpdateCompany(updateCompany);
+
+            }
             Response.Redirect(Request.UrlReferrer.ToString());
         }
 
@@ -69,6 +77,20 @@ namespace Consid.Controllers
         {
             CompanyManager.DeleteCompany(CompanyManager.getcompany(Id));
             return RedirectToAction("ListCompanies", "Company");
+        }
+
+        public bool ValidInputs(string Name, int OrganizationNr)
+        {
+            if (Name.Length <=0  || Name.Length > 255)
+            {
+                return false;
+            }
+            if (OrganizationNr <= 0 || OrganizationNr > int.MaxValue)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

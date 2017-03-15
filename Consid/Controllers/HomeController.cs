@@ -8,7 +8,12 @@ namespace Consid.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index()  //Index()
+        {
+            return View();
+        }
+
+        public ActionResult Home()
         {
             return View();
         }
@@ -26,5 +31,6 @@ namespace Consid.Controllers
 
             return View();
         }
+
     }
 }
