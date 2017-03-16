@@ -1,20 +1,23 @@
 ﻿@model List<Service.Models.store>
 @using Service.Models;
 @{
-    Layout = null;
+    ViewBag.Title = "Stores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+@*<img src="~/Images/LogoPlaceholder.jpg" class="img-circle" width="150" height="150"/>*@
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ListStores</title>
-</head>
-<body>
-    <div> 
+
+
+<div class="container col-md-6 col-md-pull-4">
+    <div class="media">
+
         @foreach (var obj in Model)
-        {
+            {        <div class="media-list">
+            <img src="~/Images/LogoPlaceholder.jpg" class="img-circle" width="150" height="150" alt="...">
+        </div>
+
+        <div class="media-body">
             <a href="@Url.Action("ShowStore","Store", new { obj.Id})"><h2>@obj.Name</h2></a>
             <a href="@Url.Action("ShowCompany","Company", new { obj.Company.Id})"><h3>@obj.Company.Name</h3></a>
             <p>@obj.Address</p>
@@ -22,10 +25,24 @@
             <p>@obj.City</p>
             <p>@obj.Country</p>
             <p>@obj.Latitude</p>
-            <p>@obj.Longitude</p><br/>
+            <p>@obj.Longitude</p><br />
+        </div>
         }
+
+
     </div>
-    <div>
+</div>
+
+
+
+
+
+
+
+
+
+
+    @*<div>
         @using(Html.BeginForm("AddStore", "Store", FormMethod.Post))
         {
             <p>The store name:</p>
@@ -52,6 +69,4 @@
             <input name="Latitude" type="number" /><br /><br/>
             <input type="submit" />
         }
-    </div>
-</body>
-</html>
+    </div>*@

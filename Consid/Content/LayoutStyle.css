@@ -1,0 +1,78 @@
+﻿body {
+
+}
+
+html,body{height:100%;}
+.carousel,.item,.active{height:100%;}
+.carousel-inner{height:100%;}
+.fill{width:100%;height:100%;background-position:center;background-size:cover;}
+
+.imgId {
+    width : 100%;
+    
+}
+
+
+/* navbar */
+.navbar-fixed-top {
+    background : rgba(0,0,0,.85);
+    border-color: #000;
+}
+/* title */
+.navbar-fixed-top .navbar-brand {
+    color: #FFF;
+}
+.navbar-fixed-top .navbar-brand:hover,
+.navbar-fixed-top .navbar-brand:focus {
+    color: #D5D5D5;
+}
+/* link */
+.navbar-fixed-top .navbar-nav > li > a {
+    color: #FFF;
+}
+.navbar-fixed-top .navbar-nav > li > a:hover,
+.navbar-fixed-top .navbar-nav > li > a:focus {
+    color: #000;
+    background-color: #e6e6e6;
+}
+.navbar-fixed-top .navbar-nav > .active > a, 
+.navbar-fixed-top .navbar-nav > .active > a:hover, 
+.navbar-fixed-top .navbar-nav > .active > a:focus {
+    color: #000;
+    background-color: #FFF;
+}
+.navbar-fixed-top .navbar-nav > .open > a, 
+.navbar-fixed-top .navbar-nav > .open > a:hover, 
+.navbar-fixed-top .navbar-nav > .open > a:focus {
+    color: #D5D5D5;
+    background-color: #80ffaa;
+}
+
+
+ .carousel-caption {
+    position: relative;
+    top: 35%;
+}
+
+ .marketing .col-lg-4 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.marketing h2 {
+  font-weight: normal;
+}
+.marketing .col-lg-4 p {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.featurette-divider {
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -1px;
+}

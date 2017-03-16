@@ -1,21 +1,94 @@
 ﻿@model List<Service.Models.company>
 @{
-    Layout = null;
+    ViewBag.Title = "Company";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
 }
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ListCompanies</title>
-</head>
-<body>
+
+
+<div class="container marketing">
+
+
+    @{bool switcher = true;}
+    @foreach (var obj in Model)
+    {
+        switcher = !switcher;
+        if (switcher)
+        {
+
+            // <a href="@Url.Action("ShowCompany", "Company", new { obj.Id })"></a>
+            <hr class="featurette-divider">
+            <div class="row featurette">
+                <div class="col-md-7 col-md-push-5" >
+                        <h2 class="featurette-heading">@obj.Name</h2>
+                        <h3>Organization number: <span class="lead"> @obj.OrganizationNumber</span></h3>
+                        <h3>Notes: @obj.Notes</h3>
+                        <h3>Stores:</h3>
+                        @foreach (var store in obj.Stores)
+                        {
+                            <h4>@store.Name</h4>
+                        }<br />
+                </div>
+                <div class="col-md-5 col-md-pull-7">
+                    <img class="featurette-image img-responsive center-block" src="~/Images/LogoPlaceholder.jpg" alt="Generic placeholder image">
+                </div>
+            </div>
+        }
+        else
+        {
+            //<a href="@Url.Action("ShowCompany", "Company", new { obj.Id })">    </a>
+            <hr class="featurette-divider">
+
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h2 class="featurette-heading">@obj.Name</h2>
+
+                    <h2 class="text-muted">@obj.OrganizationNumber</h2>
+                    <p class="lead">@obj.Notes</p>
+                    @*@foreach (var store in obj.Stores)
+                        {
+                        <p>@store.Name</p>
+                        }<br />*@
+                </div>
+
+                <div class="col-md-5 ">
+                    <img class="featurette-image img-responsive center-block" src="~/Images/LogoPlaceholder.jpg" alt="Generic placeholder image">
+                </div>
+            </div>
+        }
+    }
+
+
+</div>
+
+
+
+
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <!-- /END THE FEATURETTES -->
+
+
+
     <div>
         @foreach (var obj in Model)
-        {
+            {
             <a href="@Url.Action("ShowCompany","Company", new {obj.Id})"><h2>@obj.Name</h2></a>
-            <h3>@obj.OrganizationNumber</h3>
-            <p> @obj.Notes</p>
+                <h3>@obj.OrganizationNumber</h3>
+                <p> @obj.Notes</p>
             foreach (var store in obj.Stores)
             {
                 <p>@store.Name</p>
@@ -25,18 +98,16 @@
 
     <div>
         <h1>Create new company</h1>
-        @using(Html.BeginForm("AddCompany", "Company", FormMethod.Post))
-        {
+        @using (Html.BeginForm("AddCompany", "Company", FormMethod.Post))
+            {
             <p>The company name:</p>
-            <input name="Name" type="text"/><br />
-            <p>The company's organizationnumber:</p>
-            <input name="OrganizationNr" type="number"/><br />
-            <p>Information about the company:</p>
-            <input name="Notes" type="text"/><br /><br />
-            <input type="submit" />
+                <input name="Name" type="text" /><br />
+                <p>The company's organizationnumber:</p>
+                <input name="OrganizationNr" type="number" /><br />
+                <p>Information about the company:</p>
+                <input name="Notes" type="text" /><br /><br />
+                <input type="submit" />
         }
 
     </div>
 
-</body>
-</html>

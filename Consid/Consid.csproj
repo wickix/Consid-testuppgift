@@ -147,6 +147,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
@@ -158,12 +159,20 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cover.css" />
     <Content Include="Content\HomeStyle.css" />
+    <Content Include="Content\LayoutStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\fern-1250903_1920.jpg" />
+    <Content Include="Images\floor-1256804_1920.jpg" />
+    <Content Include="Images\test.jpg" />
+    <Content Include="Images\heart.png" />
     <Content Include="Images\hero.png" />
+    <Content Include="Images\me.JPG" />
+    <Content Include="Images\LogoPlaceholder.jpg" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -203,6 +212,8 @@
     <Content Include="Views\Store\ShowStore.cshtml" />
     <Content Include="Views\Shared\_LayoutPage.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\About\About.cshtml" />
+    <Content Include="Views\Shared\_testLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
