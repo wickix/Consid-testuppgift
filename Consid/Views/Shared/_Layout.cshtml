@@ -29,7 +29,7 @@
                             <ul class="nav masthead-nav">
                                 <li class = "@{if (ViewBag.Title == "Home") {<text>active</text>} }" ><a href="@Url.Action("Home","Home")">Home</a></li>
                                 <li><a href="@Url.Action("ListCompanies", "Company")">Companies</a></li>
-                                <li class="@{if (ViewBag.Title == "Stores") {<text>active</text>}}"><a href="@Url.Action("ListStores","Stores")">Stores</a></li>
+                                <li class="@{if (ViewBag.Title == "Stores") {<text>active</text>}}"><a href="@Url.Action("ListStores","Store")">Stores</a></li>
                                 <li class="@{if (ViewBag.Title == "About") {<text>active</text>}}"><a href="@Url.Action("About","About")">About</a></li>
                             </ul>
                         </nav>

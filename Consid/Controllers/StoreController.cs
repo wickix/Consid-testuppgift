@@ -16,12 +16,26 @@ namespace Consid.Controllers
     public class StoreController : Controller
     {
 
-        Regex regex = new Regex("[a-zA-Z åäöÅÄÖ]");
-        Regex regexAddress = new Regex(@"[\w åäöÅÄÖ]");
+        //Regex regex = new Regex("[a-zA-Z åäöÅÄÖ ]");
+        String regex= ("[^a-zA-Z åäöÅÄÖ ]");
+
+        String regexAddress = (@"[^\w åäöÅÄÖ]");
+      //  Regex regexAddress = new Regex(@"[\w åäöÅÄÖ]");
         // GET: Store
-        public ViewResult ListStores()
+
+
+        public ViewResult ListStores(int? page)
         {
-            return View(StoreManager.getStores());
+            var pager = new Pagination(StoreManager.getNumberOfStores(), page);
+            var items = StoreManager.getStores(pager);
+
+            var viewModel = new ListStoresModel
+            {
+                Items = items,//.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize),
+                Pager = pager
+            };
+            //return View(items.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize));
+            return View(viewModel);
         }
 
         public ViewResult ShowStore(Guid Id)
@@ -34,8 +48,8 @@ namespace Consid.Controllers
             if (ValidInput(Name, Company, Address, City, Zip, Country))
             {
                 store newStore = new store();
-                List<store> listStore = StoreManager.getStores();
-                bool IdExist = true;
+            //    List<store> listStore = StoreManager.getStores();
+           //     bool IdExist = true;
 
                 newStore.Name = Name;
                 newStore.CompanyId = CompanyManager.getcompany(Company).Id;
@@ -48,19 +62,19 @@ namespace Consid.Controllers
                 newStore.Latitude = location[0].ToString();
                 newStore.Id = Guid.NewGuid();
                 //Check if the Id already exist
-                while (IdExist)
-                {
-                    foreach (var store in listStore)
-                    {
-                        if (newStore.Id == store.Id)
-                        {
-                            newStore.Id = Guid.NewGuid();
-                            IdExist = true;
-                            break;
-                        }
-                        IdExist = false;
-                    }
-                }
+                //while (IdExist)
+                //{
+                //    foreach (var store in listStore)
+                //    {
+                //        if (newStore.Id == store.Id)
+                //        {
+                //            newStore.Id = Guid.NewGuid();
+                //            IdExist = true;
+                //            break;
+                //        }
+                //        IdExist = false;
+                //    }
+                //}
 
                 StoreManager.AddStore(newStore);
             }
@@ -151,11 +165,15 @@ namespace Consid.Controllers
             {
                 return false;
             }
-            if (Address.Length <= 0 || Address.Length > 512 || regexAddress.Matches(Address).ToString()==Address)
+            if (Address.Length <= 0 || Address.Length > 512 || System.Text.RegularExpressions.Regex.IsMatch(Address, regexAddress))
             {
                 return false;
             }
-            if (City.Length <= 0 || City.Length > 512 || regex.Matches(City).ToString() != City)
+           if((System.Text.RegularExpressions.Regex.IsMatch(City, regex)))
+            {
+                return false;
+            }
+            if (City.Length <= 0 || City.Length > 512 || System.Text.RegularExpressions.Regex.IsMatch(City, regex))
             {
                     return false;
             }
@@ -163,7 +181,7 @@ namespace Consid.Controllers
             {
                 return false;
             }
-            if (Country.Length <= 0 || Country.Length > 50 || regex.Matches(Country).ToString() != Country)
+            if (Country.Length <= 0 || Country.Length > 50 || System.Text.RegularExpressions.Regex.IsMatch(Country, regex))
             {
                 return false;
             }

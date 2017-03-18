@@ -47,6 +47,7 @@
     <Compile Include="Configuration\AutomapperConfig.cs" />
     <Compile Include="Models\company.cs" />
     <Compile Include="Models\CompanyManager.cs" />
+    <Compile Include="Models\Pagination.cs" />
     <Compile Include="Models\store.cs" />
     <Compile Include="Models\StoreManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

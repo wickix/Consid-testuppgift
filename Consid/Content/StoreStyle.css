@@ -1,0 +1,59 @@
+﻿body {
+}
+.pagination{
+    text-align : center;
+    height : 50px;
+
+}
+ .pagination ul{
+    text-align : center;
+    
+}
+
+ .pagination li{
+    display : inline-block;
+    vertical-align : middle;
+}
+
+ .pagination .pageBoxes{
+    width : 30px;
+    height : 30px;
+    background-color : #5bc0de;
+    border-radius : 20%;
+}
+
+ .pagination .pageBoxSelected{
+    width : 35px;
+    height : 35px;
+    background-color : #FFF;
+    border : solid 2px #000;
+    border-radius : 50%;
+}
+
+ .pagination .pageBoxSelected a{
+    font-size : 22px;
+    text-decoration : none;
+    color : Black;
+    vertical-align : middle;
+}
+
+.pagination .pageBoxes a{
+    font-size : 22px;
+    text-decoration : none;
+    color : white;
+    vertical-align : middle;
+}
+
+#backIconImages {
+    height: 30px; 
+    display : block; 
+    margin : auto;
+    cursor : pointer;
+}
+
+#nextIconImages {
+    height: 30px;
+    display: block;
+    margin: auto;
+    cursor: pointer;
+}

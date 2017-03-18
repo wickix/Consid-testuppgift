@@ -9,10 +9,19 @@ namespace Consid.Controllers
 {
     public class CompanyController : Controller
     {
+
         // GET: Company
-        public ViewResult ListCompanies()
+        public ViewResult ListCompanies(int? page)
         {
-            return View(CompanyManager.getCompanies());
+            var pager = new Pagination(CompanyManager.getNumberOfCompanies(), page);
+            var items = CompanyManager.getCompanies(pager);
+
+            var viewModel = new ListCompaniesModel
+            {
+                Items = items,
+                Pager = pager
+            };
+            return View(viewModel);
         }
 
         public ViewResult ShowCompany(Guid Id)
@@ -25,27 +34,27 @@ namespace Consid.Controllers
             if (ValidInputs(Name, OrganizationNr))
             {
                 company newCompany = new company();
-                List<company> listCompany = CompanyManager.getCompanies();
-                bool IdExist = true;
+                //List<company> listCompany = CompanyManager.getCompanies();
+                //bool IdExist = true;
 
                 newCompany.Name = Name;
                 newCompany.OrganizationNumber = OrganizationNr;
                 newCompany.Notes = Notes;
                 newCompany.Id = Guid.NewGuid();
                 //Check if the Id already exist
-                while (IdExist)
-                {
-                    foreach (var company in listCompany)
-                    {
-                        if (newCompany.Id == company.Id)
-                        {
-                            newCompany.Id = Guid.NewGuid();
-                            IdExist = true;
-                            break;
-                        }
-                        IdExist = false;
-                    }
-                }
+                //while (IdExist)
+                //{
+                //    foreach (var company in listCompany)
+                //    {
+                //        if (newCompany.Id == company.Id)
+                //        {
+                //            newCompany.Id = Guid.NewGuid();
+                //            IdExist = true;
+                //            break;
+                //        }
+                //        IdExist = false;
+                //    }
+                //}
 
                 //newCompany.Stores = StoresList;
 

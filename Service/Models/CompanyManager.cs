@@ -10,6 +10,12 @@ using Service.Configuration;
 
 namespace Service.Models
 {
+    public class ListCompaniesModel
+    {
+        public List<company> Items { get; set; }
+        public Pagination Pager { get; set; }
+    }
+
     public class CompanyManager
     {
         static private CompanyDba _companyDba = new CompanyDba();
@@ -19,9 +25,9 @@ namespace Service.Models
         {
             return Mapper.Map<company>(_companyDba.Read(Id));
         }
-            static public List<company> getCompanies()
+            static public List<company> getCompanies(Pagination pager)
         {
-            return Mapper.Map<List<Company>, List<company>>(_companyDba.List());
+            return Mapper.Map<List<Company>, List<company>>(_companyDba.List(pager.CurrentPage, pager.PageSize));
         }
 
         static public void AddCompany(company companyObject)
@@ -37,6 +43,10 @@ namespace Service.Models
         static public void DeleteCompany(company companyObject)
         {
             _companyDba.Delete(Mapper.Map<company, Company>(companyObject));
+        }
+        static public int getNumberOfCompanies()
+        {
+            return _companyDba.getNumberOfCompanies();
         }
     }
 }

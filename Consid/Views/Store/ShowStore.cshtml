@@ -1,90 +1,274 @@
 ﻿@model Service.Models.store
 @using Service.Models
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_testLayout.cshtml";
 }
 
-<!DOCTYPE html>
+<div class="container" style="margin-top:20%;">
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ShowStore</title>
-    <style>
-        #map {
-            height: 400px;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
     <div>
         <h2>@Model.Name</h2>
-        <a href="@Url.Action("ShowCompany", "Company", new { Model.Company.Id })"><h3>@Model.Company.Name</h3></a>
-        <p>@Model.Address</p>
-        <p>@Model.Zip</p>
-        <p>@Model.City</p>
-        <p>@Model.Country</p>
-        <p>@Model.Latitude</p>
-        <p>@Model.Longitude</p><br />
+        <a href="@Url.Action("ShowCompany", "Company", new { Model.Company.Id })"><h4>Owner: @Model.Company.Name</h4></a>
+        <h4>Address: @Model.Address</h4>
+        <h4>Zip code: @Model.Zip</h4>
+        <h4>City: @Model.City</h4>
+        <h4>Country: @Model.Country</h4>
+        @*<p>@Model.Latitude</p>
+            <p>@Model.Longitude</p>*@<br />
 
     </div>
-    <div>
-        @using (Html.BeginForm("UpdateStore", "Store", new { Model.Id }, FormMethod.Post))
-        {
-            <p>The store name:</p>
-            <input name="Name" type="text" value="@Model.Name" /><br />
-            <p>Owner:</p>
-            <select name="Company">
-                <option value="@Guid.Empty">-------- Choose a company --------</option>
-                @foreach (var company in CompanyManager.getCompanies())
-                {
-                    if (Model.CompanyId == company.Id)
-                    {
-                        <option selected value="@company.Id">@company.Name</option>
-                    }
-                    else
+
+
+
+    <!-- Trigger the modal with a button -->
+    <div class="row">
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddModal">Add</button>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#EditModal">Edit</button>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#DeleteModal">Delete</button><br /><br /><br />
+    </div>
+
+
+    @using (Html.BeginForm("AddStore", "Store", FormMethod.Post, new { @class = "cmxform", id = "commentForm" }))
+    {
+        <fieldset>
+            <div id="AddModal" class="modal fade" style="color:black; text-shadow:none;">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add a store</h4>
+                        </div>
+
+
+                        <div class="modal-body">
+                            <p>The store name:</p>
+                            <input name="Name" id="cname" type="text" minlength="1" maxlength="100" required aria-required="true" class="error" aria-invalid="false" /><br /><br />
+                            <p>Owner:</p>
+                            <select name="Company">
+                                @*  <option value="-1">-------- Choose a company --------</option>*@
+                                @foreach (var company in CompanyManager.getCompanies())
+                                {
+                                    <option value="@company.Id">@company.Name</option>
+                                }
+                            </select><br /><br />
+                            <p>Address:</p>
+                            <input name="Address" type="text" class="required specialChar" minlength="1" maxlength="512" required aria-required="true" @*class="error"*@ aria-invalid="false" /><br /><br />
+                            <p>City:</p>
+                            <input name="City" type="text" class="required onlyAlfa" minlength="1" maxlength="512" required aria-required="true" @*class="error"*@ aria-invalid="false" /><br /><br />
+                            <p>Zip:</p>
+                            <input name="Zip" type="number" minlength="1" maxlength="16" required aria-required="true" class="error" aria-invalid="false" /><br /><br />
+                            <p>Country:</p>
+                            <input name="Country" type="text" class="onlyAlfa" minlength="1" maxlength="50" required aria-required="true" @*class="error"*@ aria-invalid="false" />
+                            @* <p>Longitude:</p>*@
+                            @* <input name="Longitude" type="number" /><br />*@
+                            @* <p>Latitude:</p>*@
+                            @* <input name="Latitude" type="number" /><br /><br />*@
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal"style="border:solid 1px;">Close</button>
+                                <button type="submit" class="btn btn-default" style="border:solid 1px; color: #5bc0de">Send</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+    }
+    <!-- Modal -->
+    @using (Html.BeginForm("UpdateStore", "Store", new { Model.Id }, FormMethod.Post, new { @class = "cmxform", id = "commentForm" }))
+    {
+        <fieldset>
+            <div id="EditModal" class="modal fade" style="color:black; text-shadow:none;">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Edit @Model.Name</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <p>The store name:</p>
+                            <input name="Name" id="cname" type="text" value="@Model.Name" minlength="1" maxlength="100" required aria-required="true" class="error" aria-invalid="false" /><br /><br />
+                            <p>Owner:</p>
+                            <select name="Company">
+                                @* <option value="@Guid.Empty">-------- Choose a company --------</option>*@
+                                @foreach (var company in CompanyManager.getCompanies())
+                                {
+                                    if (Model.CompanyId == company.Id)
+                                    {
+                                        <option selected value="@company.Id">@company.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@company.Id">@company.Name</option>
+                                    }
+                                }
+                            </select><br /><br />
+                            <p>Address:</p>
+                            <input name="Address" type="text" value="@Model.Address" class="required specialChar" minlength="1" maxlength="512" required aria-required="true" @*class="error"*@ aria-invalid="false" /><br /><br />
+                            <p>City:</p>
+                            <input name="City" type="text" value="@Model.City" class="required onlyAlfa" minlength="1" maxlength="512" required aria-required="true" @*class="error"*@ aria-invalid="false" /><br /><br />
+                            <p>Zip:</p>
+                            <input name="Zip" type="number" value="@Model.Zip" minlength="1" maxlength="16" required aria-required="true" class="error" aria-invalid="false" /><br /><br />
+                            <p>Country:</p>
+                            <input name="Country" type="text" value="@Model.Country" class="onlyAlfa" minlength="1" maxlength="50" required aria-required="true" @*class="error"*@ aria-invalid="false" />
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" style="border:solid 1px;">Close</button>
+                                <button type="submit" class="btn btn-default" style="border:solid 1px; color:#5bc0de;">Send</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+    }
+
+@using (Html.BeginForm("DeleteStore", "Store", new { Model.Id }, FormMethod.Post))
+{
+    <div id="DeleteModal" class="modal fade" role="dialog" style="color:black; text-shadow:none;">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Do you really want to delete @Model.Name?</h4>
+       
+                </div>
+                <div class="modal-body">
+                    @*<h3>Do you really want to delete @Model.Name?</h3>*@
+                    @*<div class="modal-footer">*@
+                        <button type="button" class="btn btn-default" style="border:solid 1px;" data-dismiss="modal">Close</button>
+                       <button  type="submit" style="background-color:#cc0000; color:white;" class="btn btn-default">Delete</button>
+                    @*</div>*@
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+
+    <script>
+                        $("#commentForm").validate();
+
+                        jQuery.validator.addMethod("specialChar", function(value, element) {
+                            return this.optional(element) || /([0-9a-zA-Z åäöÅÄÖ])/.test(value);
+                        }, "No special characters are allowed");
+
+                        jQuery.validator.addMethod("onlyAlfa", function(value, element) {
+                            return this.optional(element) || /([a-zA-Z\s])$/.test(value);
+                        }, "No digits or special characters are allowed");
+
+    </script>
+
+
+
+
+    @*<div>
+            @using(Html.BeginForm("AddStore", "Store", FormMethod.Post))
+            {
+                <p>The store name:</p>
+                <input name="Name" type="text" /><br />
+                <p>Owner:</p>
+                <select name="Company">
+                    <option value="-1">-------- Choose a company --------</option>
+                    @foreach (var company in CompanyManager.getCompanies())
                     {
                         <option value="@company.Id">@company.Name</option>
+                        }
+                </select>
+                <p>Address:</p>
+                <input name="Address" type="text" /><br />
+                <p>City:</p>
+                <input name="City" type="text" /><br />
+                <p>Zip:</p>
+                <input name="Zip" type="number" /><br />
+                <p>Country:</p>
+                <input name="Country" type="text" /><br />
+                <p>Longitude:</p>
+                <input name="Longitude" type="number" /><br />
+                <p>Latitude:</p>
+                <input name="Latitude" type="number" /><br /><br/>
+                <input type="submit" />
+            }
+        </div>*@
+
+
+
+    @*<div>
+            @using (Html.BeginForm("UpdateStore", "Store", new { Model.Id }, FormMethod.Post))
+            {
+                <p>The store name:</p>
+                <input name="Name" type="text" value="@Model.Name" /><br />
+                <p>Owner:</p>
+                <select name="Company">
+                    <option value="@Guid.Empty">-------- Choose a company --------</option>
+                    @foreach (var company in CompanyManager.getCompanies())
+                    {
+                        if (Model.CompanyId == company.Id)
+                        {
+                            <option selected value="@company.Id">@company.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@company.Id">@company.Name</option>
+                        }
                     }
-                }
-            </select>
-            <p>Address:</p>
-            <input name="Address" type="text" value="@Model.Address" /><br />
-            <p>City:</p>
-            <input name="City" type="text" value="@Model.City" /><br />
-            <p>Zip:</p>
-            <input name="Zip" type="number" value="@Model.Zip" /><br />
-            <p>Country:</p>
-            <input name="Country" type="text" value="@Model.Country" /><br />
-            <p>Longitude:</p>
-            <input name="Longitude" type="number" value="@Model.Longitude" /><br />
-            <p>Latitude:</p>
-            <input name="Latitude" type="number" value="@Model.Latitude" /><br /><br />
-            <input type="submit" />
-        }
-    </div>
-    <div>
-        <h1 style="color : palevioletred">Delete this store</h1>
-        <input type="button" onclick="location.href='@Url.Action("DeleteStore", "Store", new { Model.Id, })'" value="DELETE" />
-    </div>
+                </select>
+                <p>Address:</p>
+                <input name="Address" type="text" value="@Model.Address" /><br />
+                <p>City:</p>
+                <input name="City" type="text" value="@Model.City" /><br />
+                <p>Zip:</p>
+                <input name="Zip" type="number" value="@Model.Zip" /><br />
+                <p>Country:</p>
+                <input name="Country" type="text" value="@Model.Country" /><br />
+                <p>Longitude:</p>
+                <input name="Longitude" type="number" value="@Model.Longitude" /><br />
+                <p>Latitude:</p>
+                <input name="Latitude" type="number" value="@Model.Latitude" /><br /><br />
+                <input type="submit" />
+            }
+        </div>*@
+    @*<div>
+            <h1 style="color : palevioletred">Delete this store</h1>
+            <input type="button" onclick="location.href='@Url.Action("DeleteStore", "Store", new { Model.Id, })'" value="DELETE" />
+        </div>*@
 
 
     @if (!((Model.Latitude == "") || (Model.Longitude == "")))
     {
-        <div id="map">
+        <div id="map" style="margin-bottom:10%;">
             <script>
-                function initMap() {
-                    var uluru = {lat: @Model.Latitude, lng: @Model.Longitude};
-                    var map = new google.maps.Map(document.getElementById('map'), {
-                        zoom: 15,
-                        center: uluru
-                    });
-                    var marker = new google.maps.Marker({
-                        position: uluru,
-                        map: map
-                    });
-                }
+                                function initMap() {
+                                    var uluru = {lat: @Model.Latitude, lng: @Model.Longitude};
+                                    var map = new google.maps.Map(document.getElementById('map'), {
+                                        zoom: 15,
+                                        center: uluru
+                                    });
+                                    var marker = new google.maps.Marker({
+                                        position: uluru,
+                                        map: map
+                                    });
+                                }
             </script>
 
             <script async defer
@@ -92,11 +276,12 @@
             </script>
         </div>
     }
-
     else
     {
         <h2> Sorry couldn't found the store's address on a map.</h2>
     }
 
-</body>
-</html>
+</div>
+
+
+

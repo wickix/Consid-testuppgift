@@ -22,11 +22,11 @@ namespace Repository.EntityModel
         public Company CompanyObj { get { return _companyObj; } }
 
 
-        public List<Company> List()
+        public List<Company> List(int CurrentPage, int PageSize)
         {
             using (var db = new CompaniesDBEntities())
             {
-                var query = db.Companies.Include(x => x.Stores).OrderBy(n => n.Name);
+                var query = db.Companies.Include(x => x.Stores).OrderBy(n => n.Name).Skip((CurrentPage - 1) * PageSize).Take(PageSize);
                 return query.ToList();
             }
         }
@@ -72,6 +72,14 @@ namespace Repository.EntityModel
                 Company companyItem = db.Companies.Find(companyObject.Id);
                 db.Companies.Remove(companyItem);
                 db.SaveChanges();
+            }
+        }
+
+        public int getNumberOfCompanies()
+        {
+            using (var db = new CompaniesDBEntities())
+            {
+                return db.Companies.Count();
             }
         }
     }

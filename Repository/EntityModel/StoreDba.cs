@@ -21,14 +21,15 @@ namespace Repository.EntityModel
         public Store StoreObj { get { return _storeObj; } }
 
 
-        public List<Store> List()
+        public List<Store> List(int CurrentPage, int PageSize)
         {
             using (var db = new CompaniesDBEntities())
             {
-                var query = db.Stores.Include(x => x.Company).OrderBy(n => n.Name);
+                var query = db.Stores.Include(x => x.Company).OrderBy(n => n.Name).Skip((CurrentPage - 1) * PageSize).Take(PageSize);
                 return query.ToList();
             }
         }
+
 
         public Store Read(Guid Id)  //Finds a particular company
         {
@@ -73,6 +74,14 @@ namespace Repository.EntityModel
                 db.Stores.Remove(storeItem);
                 db.Entry(storeItem).State = EntityState.Deleted;
                 db.SaveChanges();
+            }
+        }
+
+        public int getNumberOfStores()
+        {
+            using (var db = new CompaniesDBEntities())
+            {
+                return db.Stores.Count();
             }
         }
 
