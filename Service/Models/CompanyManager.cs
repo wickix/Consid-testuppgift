@@ -25,9 +25,14 @@ namespace Service.Models
         {
             return Mapper.Map<company>(_companyDba.Read(Id));
         }
-            static public List<company> getCompanies(Pagination pager)
+        static public List<company> getCompanies(Pagination pager)
         {
             return Mapper.Map<List<Company>, List<company>>(_companyDba.List(pager.CurrentPage, pager.PageSize));
+        }
+
+        static public List<company> getCompanies()
+        {
+            return Mapper.Map<List<Company>, List<company>>(_companyDba.List());
         }
 
         static public void AddCompany(company companyObject)

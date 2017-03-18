@@ -27,9 +27,9 @@
                 <h4> <b>Address:</b> @obj.Address</h4>
                 <h4><b>Zip code:</b> @obj.Zip</h4>
                 <h4><b>City:</b> @obj.City</h4>
-                <h4><b>Country:</b> @obj.Country</h4><br/>
-               @* <p>@obj.Latitude</p>*@
-              @*  <p>@obj.Longitude</p><br />*@
+                <h4><b>Country:</b> @obj.Country</h4><br />
+                @* <p>@obj.Latitude</p>*@
+                @*  <p>@obj.Longitude</p><br />*@
             </div>
 
         </div>
@@ -44,76 +44,85 @@
     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddModal">Add</button>
 </div>
 
-    <div class="pagination" style="margin-bottom: 5%;">
-        @if (Model.Pager.EndPage > 1)
-        {
-            <ul>
-                @if (Model.Pager.CurrentPage > 1)
+<div class="pagination" style="margin-bottom: 5%;">
+    @if (Model.Pager.EndPage > 1)
+    {
+        <ul>
+            @if (Model.Pager.CurrentPage > 1)
                 {
-                    <li>
-                            <a href="~/Store/ListStores?page=@(Model.Pager.CurrentPage - 1)"><img src="~/images/back.png" id="nextIconImages" title="Back" /></a>
-                    </li>
-                }
-                @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+                <li>
+                    <a href="~/Store/ListStores?page=@(Model.Pager.CurrentPage - 1)"><img src="~/images/back.png" id="nextIconImages" title="Back" /></a>
+                </li>
+            }
+            @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
                 {
-                    <li class="@(page == Model.Pager.CurrentPage ? "pageBoxSelected" : "pageBoxes")">
-                            <a href="~/Store/ListStores?page=@page">@page</a>
-                    </li>
-                }
+                <li class="@(page == Model.Pager.CurrentPage ? "pageBoxSelected" : "pageBoxes")">
+                    <a href="~/Store/ListStores?page=@page">@page</a>
+                </li>
+            }
 
-                @if (Model.Pager.CurrentPage < Model.Pager.TotalOfPages)
+            @if (Model.Pager.CurrentPage < Model.Pager.TotalOfPages)
                 {
-                    <li>
-                            <a href="~/Store/ListStores?page=@(Model.Pager.CurrentPage + 1)"><img src="~/images/next.png" id="nextIconImages" title="Next" /></a>
+                <li>
+                    <a href="~/Store/ListStores?page=@(Model.Pager.CurrentPage + 1)"><img src="~/images/next.png" id="nextIconImages" title="Next" /></a>
 
-                    </li>
-                }
-            </ul>
-        }
-    </div>    
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+
+@using (Html.BeginForm("AddStore", "Store", FormMethod.Post, new { @class = "cmxform", id = "commentForm" }))
+{
+    <fieldset>
+        <div id="AddModal" class="modal fade" style="color:black; text-shadow:none;">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add a store</h4>
+                    </div>
+
+
+                    <div class="modal-body">
+                        <p>The store name:</p>
+                        <input name="Name" id="cname" type="text" minlength="1" maxlength="100" required aria-required="true" class="error" aria-invalid="false" /><br /><br />
+                        <p>Owner:</p>
+                        <select name="Company">
+                            @foreach (var company in CompanyManager.getCompanies())
+                            {
+                                <option value="@company.Id">@company.Name</option>
+                            }
+                        </select><br /><br />
+                        <p>Address:</p>
+                        <input name="Address" type="text" class="required specialChar" minlength="1" maxlength="512" required aria-required="true" @*class="error"*@ aria-invalid="false" /><br /><br />
+                        <p>City:</p>
+                        <input name="City" type="text" class="required onlyAlfa" minlength="1" maxlength="512" required aria-required="true" @*class="error"*@ aria-invalid="false" /><br /><br />
+                        <p>Zip:</p>
+                        <input name="Zip" type="number" minlength="1" maxlength="16" required aria-required="true" class="error" aria-invalid="false" /><br /><br />
+                        <p>Country:</p>
+                        <input name="Country" type="text" class="onlyAlfa" minlength="1" maxlength="50" required aria-required="true" @*class="error"*@ aria-invalid="false" />
+
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" style="border:solid 1px;">Close</button>
+                            <button type="submit" class="btn btn-default" style="border:solid 1px; color: #5bc0de">Send</button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </fieldset>
+}
+
 
 
 
 <link rel="stylesheet" type="text/css" href="~/Content/StoreStyle.css" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        @*<div>
-                @using(Html.BeginForm("AddStore", "Store", FormMethod.Post))
-                {
-                    <p>The store name:</p>
-                    <input name="Name" type="text" /><br />
-                    <p>Owner:</p>
-                    <select name="Company">
-                        <option value="-1">-------- Choose a company --------</option>
-                        @foreach (var company in CompanyManager.getCompanies())
-                        {
-                            <option value="@company.Id">@company.Name</option>
-                            }
-                    </select>
-                    <p>Address:</p>
-                    <input name="Address" type="text" /><br />
-                    <p>City:</p>
-                    <input name="City" type="text" /><br />
-                    <p>Zip:</p>
-                    <input name="Zip" type="number" /><br />
-                    <p>Country:</p>
-                    <input name="Country" type="text" /><br />
-                    <p>Longitude:</p>
-                    <input name="Longitude" type="number" /><br />
-                    <p>Latitude:</p>
-                    <input name="Latitude" type="number" /><br /><br/>
-                    <input type="submit" />
-                }
-            </div>*@

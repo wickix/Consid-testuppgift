@@ -31,6 +31,16 @@ namespace Repository.EntityModel
             }
         }
 
+        public List<Company> List()
+        {
+            using (var db = new CompaniesDBEntities())
+            {
+                var query = db.Companies.Include(x => x.Stores).OrderBy(n => n.Name);
+                return query.ToList();
+            }
+        }
+
+
         public Company Read(Guid Id)  //Finds a particular company
         {
             using (var db = new CompaniesDBEntities())
