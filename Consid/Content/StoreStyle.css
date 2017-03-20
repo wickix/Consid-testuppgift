@@ -65,7 +65,7 @@
 
 
 
-/*----------------------------- ListStores -----------------------------*/
+/*----------------------------- ListStores And ListCompanies-----------------------------*/
 
 #container {
     margin-top:20%;
@@ -87,12 +87,60 @@
     margin-bottom:5%;
 }
 
-/*Add function*/
+/*Add, Edit and Delete function*/
 #AddModal {
+     color:black; 
+     text-shadow:none;
+}
+
+#EditModal {
+     color:black; 
+     text-shadow:none;
+}
+
+#DeleteModal {
      color:black; 
      text-shadow:none;
 }
 
 #Close-button {
     border:solid 1px;
+}
+
+#submit-button{
+    border:solid 1px; color: #5bc0de
+}
+
+
+
+/*----------------------------- ShowStore And ShowCompany-----------------------------*/
+#container-show {
+     margin-top:20%;
+}
+
+#img-logo-show {
+    margin-top: 10%; 
+    width: 200px; 
+    height: 200px;
+}
+
+#Delete-button{
+    background-color:#cc0000; 
+    color:white;
+}
+
+#map{
+    margin-bottom:10%;
+    height: 400px;
+    width: 100%;
+
+}
+
+#Notes {
+    width:270px; 
+    height:100px;
+}
+
+#warning b{
+    color:#cc0000;
 }

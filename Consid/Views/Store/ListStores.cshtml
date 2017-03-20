@@ -67,7 +67,6 @@
 
 @using (Html.BeginForm("AddStore", "Store", FormMethod.Post, new { @class = "cmxform", id = "commentForm" }))
 {
-    @*<fieldset>*@
         <div id="AddModal" class="modal fade">
             <div class="modal-dialog">
 
@@ -101,7 +100,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" id="Close-button" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-default" style="border:solid 1px; color: #5bc0de">Send</button>
+                            <button type="submit" class="btn btn-default" id="submit-button">Send</button>
                         </div>
                     </div>
 
@@ -110,7 +109,6 @@
 
             </div>
         </div>
-    @*</fieldset>*@
 }
 
 
