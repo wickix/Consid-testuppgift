@@ -1,7 +1,7 @@
 ﻿@model Service.Models.ListCompaniesModel
 @*@using Service.Models;*@
 @{
-    ViewBag.Title = "Company";
+    ViewBag.Title = "Companies";
     Layout = "~/Views/Shared/_testLayout.cshtml";
 }
 
@@ -83,9 +83,9 @@
 
                     <div class="modal-body">
                         <p>The company name:</p>
-                        <input name="Name" id="cname" type="text" minlength="1" maxlength="100" required aria-required="true" class="error" aria-invalid="false" /><br /><br />
+                        <input name="Name" type="text" minlength="1" maxlength="100" required /><br /><br />
                         <p>Organizationnumber:</p>
-                        <input name="OrganizationNr" type="number"  minlength="1"  required aria-required="true" @*class="error"*@ aria-invalid="false" /><br /><br />
+                        <input name="OrganizationNr" type="number"  minlength="1" maxlength="@int.MaxValue" required /><br /><br />
                         <p>Notes:</p>
                         <textarea name="Notes" id="Notes"></textarea> 
 
@@ -105,7 +105,7 @@
 }
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 
 <script>
@@ -119,4 +119,4 @@
                             return this.optional(element) || /([a-zA-Z\s])$/.test(value);
                         }, "No digits or special characters are allowed");
 
-</script>
+</script*@>

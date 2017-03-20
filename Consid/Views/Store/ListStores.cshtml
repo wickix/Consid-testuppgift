@@ -79,7 +79,7 @@
 
                     <div class="modal-body">
                         <p>The store name:</p>
-                        <input name="Name" id="cname" type="text" minlength="1" maxlength="100" required aria-required="true" class="error" aria-invalid="false" /><br /><br />
+                        <input name="Name" id="cname" type="text" minlength="1" maxlength="100" required /><br /><br />
                         <p>Owner:</p>
                         <select name="Company">
                             @foreach (var company in CompanyManager.getCompanies())
@@ -88,13 +88,13 @@
                             }
                         </select><br /><br />
                         <p>Address:</p>
-                        <input name="Address" type="text" class="required specialChar" minlength="1" maxlength="512" required aria-required="true" @*class="error"*@ aria-invalid="false" /><br /><br />
+                        <input name="Address" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z0-9 åäö ÅÄÖ])+" data-error="testarförfullt" @*title="No special characters are allowed"*@ /><br /><br />
                         <p>City:</p>
-                        <input name="City" type="text" class="required onlyAlfa" minlength="1" maxlength="512" required aria-required="true" @*class="error"*@ aria-invalid="false" /><br /><br />
+                        <input name="City" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z åäöÅÄÖ])+" title="No special characters or numbers are allowed" /><br /><br />
                         <p>Zip:</p>
-                        <input name="Zip" type="number" minlength="1" maxlength="16" required aria-required="true" class="error" aria-invalid="false" /><br /><br />
+                        <input name="Zip" type="text" minlength="1" pattern="\d*" maxlength="16" required title="Only numbers are allowed" /><br /><br />
                         <p>Country:</p>
-                        <input name="Country" type="text" class="onlyAlfa" minlength="1" maxlength="50" required aria-required="true" @*class="error"*@ aria-invalid="false" />
+                        <input name="Country" type="text" minlength="1" maxlength="50" required pattern="([a-zA-z åäöÅÄÖ])+" title="No special characters or numbers are allowed" />
 
 
 
@@ -114,4 +114,4 @@
 
 
 
-<link rel="stylesheet" type="text/css" href="~/Content/StoreStyle.css" />
+@*<link rel="stylesheet" type="text/css" href="~/Content/StoreStyle.css" />*@

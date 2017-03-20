@@ -44,11 +44,11 @@
 
                     <div class="modal-body">
                         <p>The company name:</p>
-                        <input name="Name" id="cname" type="text" minlength="1" maxlength="100" required aria-required="true" class="error" aria-invalid="false" /><br /><br />
+                        <input name="Name" type="text" minlength="1" maxlength="100" required /><br /><br />
                         <p>Organizationnumber:</p>
-                        <input name="OrganizationNr" type="number" minlength="1" required aria-required="true" @*class="error"*@ aria-invalid="false" /><br /><br />
+                        <input name="OrganizationNr" type="number" minlength="1" maxlength="@int.MaxValue" required /><br /><br />
                         <p>Notes:</p>
-                        <textarea name="Notes" style="width:270px; height:100px;"></textarea>
+                        <textarea name="Notes" id="Notes"></textarea> 
 
 
                         <div class="modal-footer">
@@ -79,9 +79,10 @@
 
                         <div class="modal-body">
                             <p>The company name:</p>
-                            <input name="Name" id="cname" type="text" value="@Model.Name" minlength="1" maxlength="100" required aria-required="true" class="error" aria-invalid="false"/><br/><br/>
+                            <input name="Name" type="text" value="@Model.Name" minlength="1" maxlength="100" required /><br/><br/>
                             <p>The company's organizationnumber:</p>
-                            <input name="OrganizationNr" type="number" value="@Model.OrganizationNumber" /><br /><br />
+                            <input name="Name" type="text" value="@Model.Name" minlength="1" maxlength="100" required /><br/><br/>
+                            <input name="OrganizationNr" type="number" minlength="1" maxlength="@int.MaxValue" value="@Model.OrganizationNumber" required /><br /><br />
                             <p>Information about the company:</p>
                             <textarea name="Notes" id="Notes" >value="@Model.Notes"</textarea><br /><br />
                            
@@ -120,7 +121,7 @@
         </div>
     }
 </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="~/Scripts/jquery.validate.js"></script>
 
     <script>
@@ -134,4 +135,4 @@
             return this.optional(element) || /([a-zA-Z\s])$/.test(value);
         }, "No digits or special characters are allowed");
 
-    </script>
+    </script>*@
