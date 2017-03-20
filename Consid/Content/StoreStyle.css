@@ -1,9 +1,13 @@
 ﻿body {
 }
+
+
+
+/*----------------------------- Pagination -----------------------------*/
 .pagination{
+    margin-bottom: 5%;
     text-align : center;
     height : 50px;
-
 }
  .pagination ul{
     text-align : center;
@@ -56,4 +60,39 @@
     display: block;
     margin: auto;
     cursor: pointer;
+}
+
+
+
+
+/*----------------------------- ListStores -----------------------------*/
+
+#container {
+    margin-top:20%;
+}
+
+#row {
+    margin-top:10%; 
+    margin-bottom: 10%;
+}
+
+#img-logo {
+   margin-top: 15%; 
+   width: 150px; 
+   height: 150px;
+}
+
+/*Add button*/
+#row-button {
+    margin-bottom:5%;
+}
+
+/*Add function*/
+#AddModal {
+     color:black; 
+     text-shadow:none;
+}
+
+#Close-button {
+    border:solid 1px;
 }
