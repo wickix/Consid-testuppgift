@@ -1,6 +1,10 @@
-﻿/*
- * Globals
- */
+﻿
+/*Img on start page*/
+#img {
+     width: 50px;
+    height: auto;
+}
+
 
 /* Links */
 a,
@@ -28,6 +32,7 @@ html,
 body {
   height: 100%;
   background-color: #333;
+  padding: 0px;
 }
 body {
   color: #fff;

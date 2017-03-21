@@ -1,8 +1,7 @@
 ﻿@model Service.Models.ListCompaniesModel
-@*@using Service.Models;*@
 @{
     ViewBag.Title = "Companies";
-    Layout = "~/Views/Shared/_testLayout.cshtml";
+    Layout = "~/Views/Shared/_LayoutContent.cshtml";
 }
 
 <div class="container" id="container">
@@ -15,10 +14,9 @@
                 <img src="~/Images/LogoPlaceholder.jpg" class="img-circle" id="img-logo" alt="logo">
             </div>
 
-
-
+            @* Display all companies with their stores *@
             <div class="col-lg-6 col-lg-pull-0 col-md-5 col-sm-9 ">
-                <a href="@Url.Action("ShowCompany","Company", new { obj.Id})"><h2>@obj.Name</h2></a>
+                <a href="@Url.Action("ShowCompany","Company", new { obj.Id})"><h2 title="Click to go to the company's page">@obj.Name</h2></a>
                 <h4><b>Organization number:</b> @obj.OrganizationNumber</h4>
                 <h4><b>Notes:</b> @obj.Notes</h4>
                 <h4><b>Stores:</b></h4>
@@ -31,13 +29,14 @@
 
         </div>
     }
-
 </div>
 
 <div class="row" id="row-button">
-    <button type="button"  class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddModal">Add</button>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddModal">Add a company</button>
 </div>
 
+
+@* Handle the pagination *@
 <div class="pagination">
     @if (Model.Pager.EndPage > 1)
     {
@@ -70,7 +69,6 @@
 
 @using (Html.BeginForm("AddCompany", "Company", FormMethod.Post, new { @class = "cmxform", id = "commentForm" }))
 {
-    @*<fieldset>*@
         <div id="AddModal" class="modal fade">
             <div class="modal-dialog">
 
@@ -79,7 +77,6 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Add a company</h4>
                     </div>
-
 
                     <div class="modal-body">
                         <p>The company name:</p>
@@ -101,22 +98,4 @@
 
             </div>
         </div>
-    @*</fieldset>*@
 }
-
-
-@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="~/Scripts/jquery.validate.js"></script>
-
-<script>
-                        $("#commentForm").validate();
-
-                        jQuery.validator.addMethod("specialChar", function(value, element) {
-                            return this.optional(element) || /([0-9a-zA-Z åäöÅÄÖ])/.test(value);
-                        }, "No special characters are allowed");
-
-                        jQuery.validator.addMethod("onlyAlfa", function(value, element) {
-                            return this.optional(element) || /([a-zA-Z\s])$/.test(value);
-                        }, "No digits or special characters are allowed");
-
-</script*@>

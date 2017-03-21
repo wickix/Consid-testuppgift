@@ -1,7 +1,7 @@
 ﻿@model Service.Models.store
 @using Service.Models
 @{
-    Layout = "~/Views/Shared/_testLayout.cshtml";
+    Layout = "~/Views/Shared/_LayoutContent.cshtml";
 }
 
 <div class="container" id="container-show">
@@ -9,7 +9,7 @@
     <div>
         <img src="~/Images/LogoPlaceholder.jpg" class="img-circle" id="img-logo-show" alt="logo"><br /><br />
 
-
+        @* Displays the store info *@
         <h2>@Model.Name</h2>
         <a href="@Url.Action("ShowCompany", "Company", new { Model.Company.Id })"><h4>Owner: @Model.Company.Name</h4></a>
         <h4>Address: @Model.Address</h4>
@@ -18,7 +18,7 @@
         <h4>Country: @Model.Country</h4>
     </div>
 
-
+    @* Buttons activates the modal which is specified*@
     <div class="row">
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddModal">Add</button>
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#EditModal">Edit</button>
@@ -28,155 +28,146 @@
 
     @using (Html.BeginForm("AddStore", "Store", FormMethod.Post, new { @class = "cmxform", id = "commentForm" }))
     {
-        <fieldset>
-            <div id="AddModal" class="modal fade">
-                <div class="modal-dialog">
-
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Add a store</h4>
-                        </div>
+        <div id="AddModal" class="modal fade">
+            <div class="modal-dialog">
 
 
-                        <div class="modal-body">
-                            <p>The store name:</p>
-                            <input name="Name" id="cname" type="text" minlength="1" maxlength="100" required/><br /><br />
-                            <p>Owner:</p>
-                            <select name="Company">
-                                @foreach (var company in CompanyManager.getCompanies())
-                                {
-                                    <option value="@company.Id">@company.Name</option>
-                                }
-                            </select><br /><br />
-                            <p>Address:</p>
-                            <input name="Address" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z0-9 åäö ÅÄÖ])+" data-error="testarförfullt" @*title="No special characters are allowed"*@/><br /><br />
-                            <p>City:</p>
-                            <input name="City" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z åäöÅÄÖ])+" title="No special characters or numbers are allowed"/><br /><br />
-                            <p>Zip:</p>
-                            <input name="Zip" type="text"  minlength="1" pattern="\d*"maxlength="16" required title="Only numbers are allowed"/><br /><br />
-                            <p>Country:</p>
-                            <input name="Country" type="text" minlength="1" maxlength="50" required  pattern="([a-zA-z åäöÅÄÖ])+" title="No special characters or numbers are allowed"/>
-
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" id="Close-button" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-default" id="submit-button">Add</button>
-                            </div>
-                        </div>
-
-
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add a store</h4>
                     </div>
 
+                    @* Makes inputs for client to fill in and a selector to choose a company *@
+                    <div class="modal-body">
+                        <p>The store name:</p>
+                        <input name="Name" id="cname" type="text" minlength="1" maxlength="100" required /><br /><br />
+                        <p>Owner:</p>
+                        <select name="Company">
+                            @foreach (var company in CompanyManager.getCompanies())
+                            {
+                                <option value="@company.Id">@company.Name</option>
+                            }
+                        </select><br /><br />
+                        <p>Address:</p>
+                        <input name="Address" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z0-9 åäö ÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
+                        <p>City:</p>
+                        <input name="City" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
+                        <p>Zip:</p>
+                        <input name="Zip" type="text" minlength="1" pattern="\d*" maxlength="16" required oninvalid="this.setCustomValidity('Only numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
+                        <p>Country:</p>
+                        <input name="Country" type="text" minlength="1" maxlength="50" required pattern="([a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" />
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" id="Close-button" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-default" id="submit-button">Add</button>
+                        </div>
+                    </div>
+
+
                 </div>
+
             </div>
-        </fieldset>
+        </div>
     }
-    <!-- Modal -->
+
+
+
     @using (Html.BeginForm("UpdateStore", "Store", new { Model.Id }, FormMethod.Post, new { @class = "cmxform", id = "commentForm" }))
     {
-        <fieldset>
-            <div id="EditModal" class="modal fade">
-                <div class="modal-dialog">
+        <div id="EditModal" class="modal fade">
+            <div class="modal-dialog">
 
 
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Edit @Model.Name</h4>
-                        </div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit @Model.Name</h4>
+                    </div>
 
-
-                        <div class="modal-body">
-                            <p>The store name:</p>
-                            <input name="Name" id="cname" type="text" minlength="1" maxlength="100" required /><br /><br />
-                            <p>Owner:</p>
-                            <select name="Company">
-                                @foreach (var company in CompanyManager.getCompanies())
+                    @* Makes inputs for client to change existing data and a selector to choose a company *@
+                    <div class="modal-body">
+                        <p>The store name:</p>
+                        <input name="Name" id="cname" type="text" minlength="1" maxlength="100" required value="@Model.Name" /><br /><br />
+                        <p>Owner:</p>
+                        <select name="Company">
+                            @foreach (var company in CompanyManager.getCompanies())
+                            {
+                                if (Model.Company.Id == company.Id)
                                 {
-                                    <option value="@company.Id">@company.Name</option>
+                                    <option value="@company.Id" selected>@company.Name</option>
                                 }
-                            </select><br /><br />
-                            <p>Address:</p>
-                            <input name="Address" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z0-9 åäö ÅÄÖ])+" data-error="testarförfullt" @*title="No special characters are allowed"*@ /><br /><br />
-                            <p>City:</p>
-                            <input name="City" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z åäöÅÄÖ])+" title="No special characters or numbers are allowed" /><br /><br />
-                            <p>Zip:</p>
-                            <input name="Zip" type="text" minlength="1" pattern="\d*" maxlength="16" required title="Only numbers are allowed" /><br /><br />
-                            <p>Country:</p>
-                            <input name="Country" type="text" minlength="1" maxlength="50" required pattern="([a-zA-z åäöÅÄÖ])+" title="No special characters or numbers are allowed" />
+                                else { 
+                                <option value="@company.Id">@company.Name</option>
+                                }
+                            }
+                        </select><br /><br />
+                        <p>Address:</p>
+                        <input name="Address" type="text" value="@Model.Address" minlength="1" maxlength="512" required pattern="([a-zA-z0-9 åäö ÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
+                        <p>City:</p>
+                        <input name="City" type="text" value="@Model.City" minlength="1" maxlength="512" required pattern="([a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
+                        <p>Zip:</p>
+                        <input name="Zip" type="text" value="@Model.Zip" minlength="1" pattern="\d*" maxlength="16" required oninvalid="this.setCustomValidity('Only numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
+                        <p>Country:</p>
+                        <input name="Country" type="text" value="@Model.Country" minlength="1" maxlength="50" required pattern="([a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or are allowed and this input must be filled in')" oninput="setCustomValidity('')" />
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" id="Close-button" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-default" id="submit-button">Edit</button>
-                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" id="Close-button" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-default" id="submit-button">Edit</button>
                         </div>
+                    </div>
 
 
+                </div>
+
+            </div>
+        </div>
+    }
+
+
+    @using (Html.BeginForm("DeleteStore", "Store", new { Model.Id }, FormMethod.Post))
+    {
+        <div id="DeleteModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Do you really want to delete @Model.Name?</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <button type="button" class="btn btn-default" id="Close-button" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-default" id="Delete-button">Delete</button>
                     </div>
 
                 </div>
+
             </div>
-        </fieldset>
+        </div>
     }
 
-@using (Html.BeginForm("DeleteStore", "Store", new { Model.Id }, FormMethod.Post))
-{
-    <div id="DeleteModal" class="modal fade" role="dialog" >
-        <div class="modal-dialog">
-
-
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Do you really want to delete @Model.Name?</h4>
-                </div>
-
-                <div class="modal-body">
-                        <button type="button" class="btn btn-default" id="Close-button" data-dismiss="modal">Close</button>
-                        <button  type="submit" class="btn btn-default" id="Delete-button" >Delete</button>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-}
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    @*<script src="~/Scripts/jquery.validate.js"></script>
-
-    <script>
-                        $("#commentForm").validate();
-                        
-                        jQuery.validator.addMethod("specialChar", function(value, element) {
-                            return this.optional(element) || /([\w åäöÅÄÖ])/.test(value);
-                        }, "No special characters are allowed");
-
-                        jQuery.validator.addMethod("onlyAlfa", function(value, element) {
-                            return this.optional(element) || /([a-zA-Z\s])$/.test(value);
-                        }, "No digits or special characters are allowed");
-
-    </script>*@
 
 
 
-
+    @* Checks if map can be sat or if an explanation text will be displayed. *@
     @if (!((Model.Latitude == "") || (Model.Longitude == "")))
     {
         <div id="map">
             <script>
-                                function initMap() {
-                                    var uluru = {lat: @Model.Latitude, lng: @Model.Longitude};
-                                    var map = new google.maps.Map(document.getElementById('map'), {
-                                        zoom: 15,
-                                        center: uluru
-                                    });
-                                    var marker = new google.maps.Marker({
-                                        position: uluru,
-                                        map: map
-                                    });
-                                }
+                function initMap() {
+                    var uluru = {lat: @Model.Latitude, lng: @Model.Longitude};
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 15,
+                        center: uluru
+                    });
+                    var marker = new google.maps.Marker({
+                        position: uluru,
+                        map: map
+                    });
+                }
             </script>
 
             <script async defer
@@ -190,6 +181,3 @@
     }
 
 </div>
-
-
-@*<link rel="stylesheet" type="text/css" href="~/Content/StoreStyle.css" />*@

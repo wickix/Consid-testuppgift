@@ -2,11 +2,12 @@
 @using Service.Models;
 @{
     ViewBag.Title = "Stores";
-    Layout = "~/Views/Shared/_testLayout.cshtml";
+    Layout = "~/Views/Shared/_LayoutContent.cshtml";
 }
 
 <div class="container" id="container">
 
+    @* Displays four stores (only four stores gets fetched at the time in the controller) *@
     @foreach (var obj in Model.Items)
     {
 
@@ -17,8 +18,8 @@
 
 
             <div class="col-lg-6 col-lg-pull-0 col-md-5 col-sm-9 ">
-                <a href="@Url.Action("ShowStore","Store", new { obj.Id})"><h2>@obj.Name</h2></a>
-                <a href="@Url.Action("ShowCompany","Company", new { obj.Company.Id})"><h4><b>Owner:</b> @obj.Company.Name</h4></a>
+                <a href="@Url.Action("ShowStore","Store", new { obj.Id})"><h2 title="Click to go to the store's page">@obj.Name</h2></a>
+                <a href="@Url.Action("ShowCompany","Company", new { obj.Company.Id})"><h4 title="Click to go to the company's page"><b >Owner:</b> @obj.Company.Name</h4></a>
                 <h4> <b>Address:</b> @obj.Address</h4>
                 <h4><b>Zip code:</b> @obj.Zip</h4>
                 <h4><b>City:</b> @obj.City</h4>
@@ -31,10 +32,11 @@
 
 
 <div class="row" id="row-button">
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddModal">Add</button>
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddModal">Add a store</button>
 </div>
 
 
+@* Handles the pagination *@
 <div class="pagination" >
     @if (Model.Pager.EndPage > 1)
     {
@@ -76,7 +78,7 @@
                         <h4 class="modal-title">Add a store</h4>
                     </div>
 
-
+                    @* Makes inputs for client to change and a selector to choose a company. With validation *@
                     <div class="modal-body">
                         <p>The store name:</p>
                         <input name="Name" id="cname" type="text" minlength="1" maxlength="100" required /><br /><br />
@@ -88,13 +90,13 @@
                             }
                         </select><br /><br />
                         <p>Address:</p>
-                        <input name="Address" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z0-9 åäö ÅÄÖ])+" data-error="testarförfullt" @*title="No special characters are allowed"*@ /><br /><br />
+                        <input name="Address" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z0-9 åäö ÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters are allowed and this input must be filled in')" oninput="setCustomValidity('')"/><br /><br />
                         <p>City:</p>
-                        <input name="City" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z åäöÅÄÖ])+" title="No special characters or numbers are allowed" /><br /><br />
+                        <input name="City" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or numbers are allowed and this input must be filled in')"  oninput="etCustomValidity('')" /><br /><br />
                         <p>Zip:</p>
-                        <input name="Zip" type="text" minlength="1" pattern="\d*" maxlength="16" required title="Only numbers are allowed" /><br /><br />
+                        <input name="Zip" type="text" minlength="1" pattern="\d*" maxlength="16" required oninvalid="this.setCustomValidity('Only numbers are allowed and this input must be filled in')"  oninput="setCustomValidity('')"/><br /><br />
                         <p>Country:</p>
-                        <input name="Country" type="text" minlength="1" maxlength="50" required pattern="([a-zA-z åäöÅÄÖ])+" title="No special characters or numbers are allowed" />
+                        <input name="Country" type="text" minlength="1" maxlength="50" required pattern="([a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or numbers are allowed and this input must be filled in')"  oninput="setCustomValidity('')"/>
 
 
 
@@ -110,8 +112,3 @@
             </div>
         </div>
 }
-
-
-
-
-@*<link rel="stylesheet" type="text/css" href="~/Content/StoreStyle.css" />*@

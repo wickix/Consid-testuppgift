@@ -14,8 +14,8 @@ namespace Service.Models
         {
             var totalOfPages = (int)Math.Ceiling((decimal)totalOfItems / (decimal)pageSize);
             var currentPage = page != null ? (int)page : 1;
-            var startPage = currentPage - 3;
-            var endPage = currentPage + 3;
+            var startPage = currentPage - 2;
+            var endPage = currentPage + 2;
 
             if (startPage <= 0)
             {
@@ -26,9 +26,9 @@ namespace Service.Models
             if (endPage > totalOfPages)
             {
                 endPage = totalOfPages;
-                if (endPage > 4)
+                if (endPage > 10)
                 {
-                    startPage = endPage - 3;
+                    startPage = endPage - 9;
                 }
             }
 
