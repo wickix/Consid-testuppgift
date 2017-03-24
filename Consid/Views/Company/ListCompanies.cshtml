@@ -16,16 +16,16 @@
 
             @* Display all companies with their stores *@
             <div class="col-lg-6 col-lg-pull-0 col-md-5 col-sm-9 ">
-                <a href="@Url.Action("ShowCompany","Company", new { obj.Id})"><h2 title="Click to go to the company's page">@obj.Name</h2></a>
-                <h4><b>Organization number:</b> @obj.OrganizationNumber</h4>
-                <h4><b>Notes:</b> @obj.Notes</h4>
-                <h4><b>Stores:</b></h4>
-                @foreach (var store in obj.Stores)
+    <a href="@Url.Action("ShowCompany","Company", new { obj.Id})"><h2 title="Click to go to the company's page">@obj.Name</h2></a>
+    <h4><b>Organization number:</b> @obj.OrganizationNumber</h4>
+    <h4><b>Notes:</b> @obj.Notes</h4>
+    <h4><b>Stores:</b></h4>
+    @foreach (var store in obj.Stores)
                 {
-                    <h5>@store.Name</h5>
-                }<br />
+        <a href="@Url.Action("ShowStore","Store", new { store.Id})"><h5 title="Click to go to the store's page">@store.Name</h5></a>
+    }<br />
 
-            </div>
+    </div>
 
         </div>
     }

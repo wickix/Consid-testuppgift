@@ -17,9 +17,9 @@ namespace Consid.Controllers
     {
 
         //Regex regex = new Regex("[a-zA-Z åäöÅÄÖ ]");
-        String regex= ("[^a-zA-Z åäöÅÄÖ ]");
+        String regex= (@"^[a-zA-Z åäöÅÄÖ]*$");
 
-        String regexAddress = (@"[^\w åäöÅÄÖ]");
+        String regexAddress = (@"^[a-zA-Z0-9 åäöÅÄÖ]*$");
       //  Regex regexAddress = new Regex(@"[\w åäöÅÄÖ]");
         // GET: Store
 

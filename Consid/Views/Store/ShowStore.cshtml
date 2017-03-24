@@ -50,13 +50,13 @@
                             }
                         </select><br /><br />
                         <p>Address:</p>
-                        <input name="Address" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z0-9 åäö ÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
+                        <input name="Address" type="text" minlength="1" maxlength="512" required pattern="(([^_])[a-zA-z0-9 åäö ÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
                         <p>City:</p>
-                        <input name="City" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
+                        <input name="City" type="text" minlength="1" maxlength="512" required pattern="([^_][a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
                         <p>Zip:</p>
                         <input name="Zip" type="text" minlength="1" pattern="\d*" maxlength="16" required oninvalid="this.setCustomValidity('Only numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
                         <p>Country:</p>
-                        <input name="Country" type="text" minlength="1" maxlength="50" required pattern="([a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" />
+                        <input name="Country" type="text" minlength="1" maxlength="50" required pattern="([^_][a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" />
 
 
                         <div class="modal-footer">
@@ -104,13 +104,13 @@
                             }
                         </select><br /><br />
                         <p>Address:</p>
-                        <input name="Address" type="text" value="@Model.Address" minlength="1" maxlength="512" required pattern="([a-zA-z0-9 åäö ÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
+                        <input name="Address" type="text" value="@Model.Address" minlength="1" maxlength="512" required pattern="^[a-zA-Z0-9 åäöÅÄÖ]*$" oninvalid="this.setCustomValidity('No special characters are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
                         <p>City:</p>
-                        <input name="City" type="text" value="@Model.City" minlength="1" maxlength="512" required pattern="([a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
+                        <input name="City" type="text" value="@Model.City" minlength="1" maxlength="512" required pattern="^[a-zA-Z åäöÅÄÖ]*$" oninvalid="this.setCustomValidity('No special characters or numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
                         <p>Zip:</p>
                         <input name="Zip" type="text" value="@Model.Zip" minlength="1" pattern="\d*" maxlength="16" required oninvalid="this.setCustomValidity('Only numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
                         <p>Country:</p>
-                        <input name="Country" type="text" value="@Model.Country" minlength="1" maxlength="50" required pattern="([a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or are allowed and this input must be filled in')" oninput="setCustomValidity('')" />
+                        <input name="Country" type="text" value="@Model.Country" minlength="1" maxlength="50" required pattern="^[a-zA-Z åäöÅÄÖ]*$" oninvalid="this.setCustomValidity('No special characters or are allowed and this input must be filled in')" oninput="setCustomValidity('')" />
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" id="Close-button" data-dismiss="modal">Close</button>

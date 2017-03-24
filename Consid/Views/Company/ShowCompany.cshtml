@@ -6,17 +6,17 @@
 <div class="container" id="container-show">
 
     <div>
-        <img src="~/Images/LogoPlaceholder.jpg" class="img-circle" id="img-logo-show" alt="logo"><br /><br />
+    <img src="~/Images/LogoPlaceholder.jpg" class="img-circle" id="img-logo-show" alt="logo"><br /><br />
 
-        @* Display company info and all the stores owned by the company *@
-        <h2>@Model.Name</h2>
-        <h4><b>Organization number:</b> @Model.OrganizationNumber</h4>
-        <h4><b>Notes:</b> @Model.Notes</h4><br />
-        <h4><b>Stores:</b> </h4>
-        @foreach (var store in @Model.Stores)
+    @* Display company info and all the stores owned by the company *@
+    <h2>@Model.Name</h2>
+    <h4><b>Organization number:</b> @Model.OrganizationNumber</h4>
+    <h4><b>Notes:</b> @Model.Notes</h4><br />
+    <h4><b>Stores:</b> </h4>
+    @foreach (var store in @Model.Stores)
             {
-            <h5>@store.Name</h5>
-        }<br />
+        <a href="@Url.Action("ShowStore","Store", new {store.Id})"><h5 title="Click to go to the store's page">@store.Name</h5></a>
+            }<br />
     </div>
 
 
@@ -44,7 +44,7 @@
                             <p>The company name:</p>
                             <input name="Name" type="text" minlength="1" maxlength="100" required /><br /><br />
                             <p>Organizationnumber:</p>
-                            <input name="OrganizationNr" type="number" minlength="1" maxlength="@int.MaxValue" required /><br /><br />
+                            <input name="OrganizationNr" type="number" min="0" minlength="1" maxlength="@int.MaxValue" required oninvalid="this.setCustomValidity('Only numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
                             <p>Notes:</p>
                             <textarea name="Notes" id="Notes"></textarea>
 
@@ -79,7 +79,7 @@
                             <p>The company name:</p>
                             <input name="Name" type="text" value="@Model.Name" minlength="1" maxlength="100" required /><br /><br />
                             <p>The company's organizationnumber:</p>
-                            <input name="OrganizationNr" type="number" minlength="1" maxlength="@int.MaxValue" value="@Model.OrganizationNumber" required /><br /><br />
+                            <input name="OrganizationNr" type="number" min="0"  minlength="1" maxlength="@int.MaxValue" value="@Model.OrganizationNumber" required oninvalid="this.setCustomValidity('Only numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')"/><br /><br />
                             <p>Information about the company:</p>
                             <textarea name="Notes" id="Notes" >@Model.Notes</textarea><br /><br />
 
