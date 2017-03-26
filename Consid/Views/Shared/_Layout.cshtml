@@ -12,31 +12,33 @@
     <title>Consid's Assignment</title>
 </head>
 
-<body >
-    <div class="site-wrapper"  style="background:url('../../Images/backgroundImg.jpg') no-repeat center center;
+<body>
+    <div class="site-wrapper" style="background:url('../../Images/backgroundImg.jpg') no-repeat center center;
             background-size:cover;">
 
         <div class="site-wrapper-inner">
-
             <div class="cover-container">
+
 
                 <div class="masthead clearfix">
                     <div class="inner">
                         <a href="@Url.Action("Home","Home")"><h3 title="Go to home page" class="masthead-brand">Consid's Assignment</h3></a>
-                            <nav>
-                                <ul class="nav masthead-nav">
-                                    <li class="@{if (ViewBag.Title == "Home") {<text>active</text>} }"><a href="@Url.Action("Home","Home")">Home</a></li>
-                                    <li class="@{if (ViewBag.Title == "Companies") {<text>active</text>} }"><a href="@Url.Action("ListCompanies", "Company")">Companies</a></li>
-                                    <li class="@{if (ViewBag.Title == "Stores") {<text>active</text>}}"><a href="@Url.Action("ListStores","Store")">Stores</a></li>
-                                    <li class="@{if (ViewBag.Title == "About") {<text>active</text>}}"><a href="@Url.Action("About","About")">About</a></li>
-                                </ul>
-                            </nav>
-</div>
+                        <nav>
+                            <ul class="nav masthead-nav">
+                                <li class="@{if (ViewBag.Title == "Home") {<text>active</text>} }"><a href="@Url.Action("Home","Home")">Home</a></li>
+                                <li class="@{if (ViewBag.Title == "Companies") {<text>active</text>} }"><a href="@Url.Action("ListCompanies", "Company")">Companies</a></li>
+                                <li class="@{if (ViewBag.Title == "Stores") {<text>active</text>}}"><a href="@Url.Action("ListStores","Store")">Stores</a></li>
+                                <li class="@{if (ViewBag.Title == "About") {<text>active</text>}}"><a href="@Url.Action("About","About")">About</a></li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
+
 
                 <div class="inner cover">
                     @RenderBody()
                 </div>
+
 
                 <div class="mastfoot">
                     <div class="inner">
@@ -46,10 +48,9 @@
                     </div>
                 </div>
 
+
             </div>
-
         </div>
-
     </div>
 
 

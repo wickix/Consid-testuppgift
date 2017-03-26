@@ -6,6 +6,10 @@
     padding-top: 0px; 
 }
 
+#backToTopButton {
+    background-color:#5bc0de; 
+    color:white;
+}
 
 html,body{height:100%;}
 .carousel,.item,.active{height:100%;}

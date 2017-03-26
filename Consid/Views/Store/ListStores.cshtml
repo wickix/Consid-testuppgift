@@ -10,7 +10,6 @@
     @* Displays four stores (only four stores gets fetched at the time in the controller) *@
     @foreach (var obj in Model.Items)
     {
-
         <div class="row" id="row">
             <div class="col-lg-6 col-lg-pull-1 col-md-5  col-sm-9 ">
                 <img src="~/Images/LogoPlaceholder.jpg" class="img-circle" id="img-logo" alt="Logo">
@@ -19,15 +18,15 @@
 
             <div class="col-lg-6 col-lg-pull-0 col-md-5 col-sm-9 ">
                 <a href="@Url.Action("ShowStore","Store", new { obj.Id})"><h2 title="Click to go to the store's page">@obj.Name</h2></a>
-                <a href="@Url.Action("ShowCompany","Company", new { obj.Company.Id})"><h4 title="Click to go to the company's page"><b >Owner:</b> @obj.Company.Name</h4></a>
+                <a href="@Url.Action("ShowCompany","Company", new { obj.Company.Id})"><h4 title="Click to go to the company's page"><b>Owner:</b> @obj.Company.Name</h4></a>
                 <h4> <b>Address:</b> @obj.Address</h4>
                 <h4><b>Zip code:</b> @obj.Zip</h4>
                 <h4><b>City:</b> @obj.City</h4>
                 <h4><b>Country:</b> @obj.Country</h4><br />
             </div>
-
         </div>
     }
+
 </div>
 
 
@@ -37,25 +36,25 @@
 
 
 @* Handles the pagination *@
-<div class="pagination" >
+<div class="pagination">
     @if (Model.Pager.EndPage > 1)
     {
         <ul>
             @if (Model.Pager.CurrentPage > 1)
-                {
+            {
                 <li>
                     <a href="~/Store/ListStores?page=@(Model.Pager.CurrentPage - 1)"><img src="~/images/back.png" id="nextIconImages" title="Back" /></a>
                 </li>
             }
             @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
-                {
+            {
                 <li class="@(page == Model.Pager.CurrentPage ? "pageBoxSelected" : "pageBoxes")">
                     <a href="~/Store/ListStores?page=@page">@page</a>
                 </li>
             }
 
             @if (Model.Pager.CurrentPage < Model.Pager.TotalOfPages)
-                {
+            {
                 <li>
                     <a href="~/Store/ListStores?page=@(Model.Pager.CurrentPage + 1)"><img src="~/images/next.png" id="nextIconImages" title="Next" /></a>
 
@@ -69,46 +68,50 @@
 
 @using (Html.BeginForm("AddStore", "Store", FormMethod.Post, new { @class = "cmxform", id = "commentForm" }))
 {
-        <div id="AddModal" class="modal fade">
-            <div class="modal-dialog">
+    <div id="AddModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add a store</h4>
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add a store</h4>
+                </div>
+
+
+                @* Makes inputs for client to change and a selector to choose a company. With validation *@
+                <div class="modal-body">
+                    <p>The store name:</p>
+                    <input name="Name" id="cname" type="text" minlength="1" maxlength="100" required /><br /><br />
+                    <p>Owner:</p>
+
+                    <select name="Company">
+                        @foreach (var company in CompanyManager.getCompanies())
+                        {
+                            <option value="@company.Id">@company.Name</option>
+                        }
+                    </select><br /><br />
+
+                    <p>Address:</p>
+                    <input name="Address" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z0-9 åäö ÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
+                    <p>City:</p>
+                    <input name="City" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or numbers are allowed and this input must be filled in')" oninput="etCustomValidity('')" /><br /><br />
+                    <p>Zip:</p>
+                    <input name="Zip" type="text" minlength="1" pattern="\d*" maxlength="16" required oninvalid="this.setCustomValidity('Only numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
+                    <p>Country:</p>
+                    <input name="Country" type="text" minlength="1" maxlength="50" required pattern="([a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or numbers are allowed and this input must be filled in')" oninput="setCustomValidity('')" />
+
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="Close-button" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-default" id="submit-button">Send</button>
                     </div>
-
-                    @* Makes inputs for client to change and a selector to choose a company. With validation *@
-                    <div class="modal-body">
-                        <p>The store name:</p>
-                        <input name="Name" id="cname" type="text" minlength="1" maxlength="100" required /><br /><br />
-                        <p>Owner:</p>
-                        <select name="Company">
-                            @foreach (var company in CompanyManager.getCompanies())
-                            {
-                                <option value="@company.Id">@company.Name</option>
-                            }
-                        </select><br /><br />
-                        <p>Address:</p>
-                        <input name="Address" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z0-9 åäö ÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters are allowed and this input must be filled in')" oninput="setCustomValidity('')"/><br /><br />
-                        <p>City:</p>
-                        <input name="City" type="text" minlength="1" maxlength="512" required pattern="([a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or numbers are allowed and this input must be filled in')"  oninput="etCustomValidity('')" /><br /><br />
-                        <p>Zip:</p>
-                        <input name="Zip" type="text" minlength="1" pattern="\d*" maxlength="16" required oninvalid="this.setCustomValidity('Only numbers are allowed and this input must be filled in')"  oninput="setCustomValidity('')"/><br /><br />
-                        <p>Country:</p>
-                        <input name="Country" type="text" minlength="1" maxlength="50" required pattern="([a-zA-z åäöÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters or numbers are allowed and this input must be filled in')"  oninput="setCustomValidity('')"/>
-
-
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" id="Close-button" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-default" id="submit-button">Send</button>
-                        </div>
-                    </div>
-
 
                 </div>
 
+
             </div>
         </div>
+    </div>
 }

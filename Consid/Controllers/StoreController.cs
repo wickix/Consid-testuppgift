@@ -15,15 +15,12 @@ namespace Consid.Controllers
 {
     public class StoreController : Controller
     {
-
-        //Regex regex = new Regex("[a-zA-Z åäöÅÄÖ ]");
         String regex= (@"^[a-zA-Z åäöÅÄÖ]*$");
 
         String regexAddress = (@"^[a-zA-Z0-9 åäöÅÄÖ]*$");
-      //  Regex regexAddress = new Regex(@"[\w åäöÅÄÖ]");
+
+
         // GET: Store
-
-
         public ViewResult ListStores(int? page)
         {
             var pager = new Pagination(StoreManager.getNumberOfStores(), page);
@@ -31,10 +28,9 @@ namespace Consid.Controllers
 
             var viewModel = new ListStoresModel
             {
-                Items = items,//.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize),
+                Items = items,
                 Pager = pager
             };
-            //return View(items.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize));
             return View(viewModel);
         }
 
@@ -48,8 +44,6 @@ namespace Consid.Controllers
             if (ValidInput(Name, Company, Address, City, Zip, Country))
             {
                 store newStore = new store();
-            //    List<store> listStore = StoreManager.getStores();
-           //     bool IdExist = true;
 
                 newStore.Name = Name;
                 newStore.CompanyId = CompanyManager.getcompany(Company).Id;
@@ -61,20 +55,7 @@ namespace Consid.Controllers
                 newStore.Longitude = location[1].ToString();
                 newStore.Latitude = location[0].ToString();
                 newStore.Id = Guid.NewGuid();
-                //Check if the Id already exist
-                //while (IdExist)
-                //{
-                //    foreach (var store in listStore)
-                //    {
-                //        if (newStore.Id == store.Id)
-                //        {
-                //            newStore.Id = Guid.NewGuid();
-                //            IdExist = true;
-                //            break;
-                //        }
-                //        IdExist = false;
-                //    }
-                //}
+
 
                 StoreManager.AddStore(newStore);
             }
@@ -97,7 +78,7 @@ namespace Consid.Controllers
                 newStore.Longitude = location[1].ToString();
                 newStore.Latitude = location[0].ToString();
                 newStore.Id = Id;
-                //Check if the Id already exist
+
 
                 StoreManager.UpdateStore(newStore);
             }
@@ -115,19 +96,14 @@ namespace Consid.Controllers
             var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://maps.google.com/maps/api/geocode/json?address="+Address.ToString().Replace(' ', '+')+"+"+City+"+"+Country+"&sensor=false");
             httpWebRequest.Method = "GET";
 
-
-            //using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            //{
-
-            //    streamWriter.Write(json);
-            //}
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                var responseText = streamReader.ReadToEnd();
 
                 dynamic jsonBody = JsonConvert.DeserializeObject(responseText);
-                //List<float?> location = new List<float?>();
+
+
                 List<double?> location= new List<double?>();
 
                 if (jsonBody["status"] == "OK")
@@ -136,21 +112,12 @@ namespace Consid.Controllers
                     dynamic test2 = Convert.ToDecimal(jsonBody["results"][0]["geometry"]["location"]["lat"]);
                     location.Add((double)jsonBody["results"][0]["geometry"]["location"]["lat"]);
                     location.Add((double)jsonBody["results"][0]["geometry"]["location"]["lng"]);
-                  //  location.Add(Convert.ToDecimal(jsonBody["results"][0]["geometry"]["location"]["lat"]));
-                  //  location.Add(jsonBody["results"][0]["geometry"]["location"].lng);
                 }
                 else
                 {
                     location.Add(null);
                     location.Add(null);
                 }
-                
-
-
-
-
-                //Now you have your response.
-                //or false depending on information in the response
                 return location;
             }
         }

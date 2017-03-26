@@ -18,6 +18,7 @@
         <h4>Country: @Model.Country</h4>
     </div>
 
+
     @* Buttons activates the modal which is specified*@
     <div class="row">
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddModal">Add</button>
@@ -30,25 +31,28 @@
     {
         <div id="AddModal" class="modal fade">
             <div class="modal-dialog">
-
-
                 <div class="modal-content">
+
+
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Add a store</h4>
                     </div>
+
 
                     @* Makes inputs for client to fill in and a selector to choose a company *@
                     <div class="modal-body">
                         <p>The store name:</p>
                         <input name="Name" id="cname" type="text" minlength="1" maxlength="100" required /><br /><br />
                         <p>Owner:</p>
+
                         <select name="Company">
                             @foreach (var company in CompanyManager.getCompanies())
                             {
                                 <option value="@company.Id">@company.Name</option>
                             }
                         </select><br /><br />
+
                         <p>Address:</p>
                         <input name="Address" type="text" minlength="1" maxlength="512" required pattern="(([^_])[a-zA-z0-9 åäö ÅÄÖ])+" oninvalid="this.setCustomValidity('No special characters are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
                         <p>City:</p>
@@ -65,9 +69,7 @@
                         </div>
                     </div>
 
-
                 </div>
-
             </div>
         </div>
     }
@@ -78,19 +80,21 @@
     {
         <div id="EditModal" class="modal fade">
             <div class="modal-dialog">
-
-
                 <div class="modal-content">
+
+
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Edit @Model.Name</h4>
                     </div>
+
 
                     @* Makes inputs for client to change existing data and a selector to choose a company *@
                     <div class="modal-body">
                         <p>The store name:</p>
                         <input name="Name" id="cname" type="text" minlength="1" maxlength="100" required value="@Model.Name" /><br /><br />
                         <p>Owner:</p>
+
                         <select name="Company">
                             @foreach (var company in CompanyManager.getCompanies())
                             {
@@ -98,11 +102,13 @@
                                 {
                                     <option value="@company.Id" selected>@company.Name</option>
                                 }
-                                else { 
-                                <option value="@company.Id">@company.Name</option>
+                                else
+                                {
+                                    <option value="@company.Id">@company.Name</option>
                                 }
                             }
                         </select><br /><br />
+
                         <p>Address:</p>
                         <input name="Address" type="text" value="@Model.Address" minlength="1" maxlength="512" required pattern="^[a-zA-Z0-9 åäöÅÄÖ]*$" oninvalid="this.setCustomValidity('No special characters are allowed and this input must be filled in')" oninput="setCustomValidity('')" /><br /><br />
                         <p>City:</p>
@@ -120,7 +126,6 @@
 
 
                 </div>
-
             </div>
         </div>
     }
@@ -130,13 +135,14 @@
     {
         <div id="DeleteModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
-
-
                 <div class="modal-content">
+
+
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Do you really want to delete @Model.Name?</h4>
                     </div>
+
 
                     <div class="modal-body">
                         <button type="button" class="btn btn-default" id="Close-button" data-dismiss="modal">Close</button>
@@ -144,7 +150,6 @@
                     </div>
 
                 </div>
-
             </div>
         </div>
     }

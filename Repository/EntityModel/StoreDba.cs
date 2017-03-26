@@ -30,12 +30,12 @@ namespace Repository.EntityModel
             }
         }
 
-
-        public Store Read(Guid Id)  //Finds a particular company
+        //Finds a particular store
+        public Store Read(Guid Id) 
         {
             using (var db = new CompaniesDBEntities())
             {
-                //db.Companies.Load();  fråga
+                db.Companies.Load();
                 return db.Stores.Include(x => x.Company).Where(y => y.Id == Id).First();
             }
         }
@@ -44,11 +44,11 @@ namespace Repository.EntityModel
         {
             using (var db = new CompaniesDBEntities())
             {
-                using (var transaction = db.Database.BeginTransaction()) // Starts a transaction
+                using (var transaction = db.Database.BeginTransaction())
                 {
-                    db.Stores.Add(storeObject);  // Prepare query  
-                    db.SaveChanges();   // Run the query
-                    transaction.Commit();   //  Permanent the result, writing to disc and closing transaction
+                    db.Stores.Add(storeObject); 
+                    db.SaveChanges(); 
+                    transaction.Commit();
                 }
             }
         }

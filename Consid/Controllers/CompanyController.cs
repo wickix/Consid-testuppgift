@@ -34,29 +34,12 @@ namespace Consid.Controllers
             if (ValidInputs(Name, OrganizationNr))
             {
                 company newCompany = new company();
-                //List<company> listCompany = CompanyManager.getCompanies();
-                //bool IdExist = true;
 
                 newCompany.Name = Name;
                 newCompany.OrganizationNumber = OrganizationNr;
                 newCompany.Notes = Notes;
                 newCompany.Id = Guid.NewGuid();
-                //Check if the Id already exist
-                //while (IdExist)
-                //{
-                //    foreach (var company in listCompany)
-                //    {
-                //        if (newCompany.Id == company.Id)
-                //        {
-                //            newCompany.Id = Guid.NewGuid();
-                //            IdExist = true;
-                //            break;
-                //        }
-                //        IdExist = false;
-                //    }
-                //}
 
-                //newCompany.Stores = StoresList;
 
                 CompanyManager.AddCompany(newCompany);
                
